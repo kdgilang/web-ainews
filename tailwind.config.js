@@ -27,6 +27,9 @@ module.exports = {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
+    transitionDuration: {
+      DEFAULT: '250ms',
+    },
     borderRadius: {
       'none': '0',
       'sm': '0.125rem',
@@ -44,7 +47,7 @@ module.exports = {
         "slate-500": "#CCCCCC",
         "slate-200": "#EEEEEE",
         
-        "slate-50": "#efefef",
+        "slate-100": "#efefef",
 
         "sky-400": "#231e12",
         "sky-500": "#blue",

@@ -1,16 +1,27 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import Search from './Search'
+import { useContext, useState } from 'react'
+import { BaseContext } from '@src/contexts/BaseContext'
 
 export default function Header() {
+  const {state, setState} = useContext(BaseContext)
+  const [ toggleTheme, setToggleTheme] = useState(false)
+
+  const handleThemeMode = () => {
+    setToggleTheme(!toggleTheme)
+
+    document.getElementsByTagName('html')[0].className = !toggleTheme ? 'dark' : ''
+  }
+  
   return (
-    <div className="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75">
+    <div className="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-100/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75">
       <div className="max-w-8xl mx-auto">
         <div className="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 mx-4 lg:mx-0">
           <div className="relative flex items-center">
             <Link className="mr-3 flex-none w-[2.0625rem] overflow-hidden md:w-auto" href="/">
               <span className="sr-only">AI News home page</span>
-              <Image src={"logo-dark.svg"} alt="AI News logo" width="100" height="50"/>
+              <Image src="logo.svg" alt="AI News logo" width="100" height="50" className="dark:hidden"/>
+              <Image src="logo-dark.svg" alt="AI News logo" width="100" height="50" className="hidden dark:inline"/>
             </Link>
             <nav className="block ml-8 text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
               <ul className="flex space-x-8">
@@ -21,13 +32,12 @@ export default function Header() {
             </nav>
             <div className="ml-auto flex items-center dark:border-slate-800">
               <label className="sr-only" id="headlessui-listbox-label-3" data-headlessui-state="">Theme</label>
-              <button className="hover:bg-slate-500 dark:hover:text-slate-200 rounded-full p-1">
-                <span className="dark:hidden">
-                  <Image src="icon-dark-mode.svg" alt="icon dark mode" width="28" height="28" />
-                </span>
-                <span className="hidden dark:inline">
-                  <Image src="icon-light-mode.svg" alt="icon light mode" width="28" height="28" />
-                </span>
+              <button 
+                onClick={handleThemeMode}
+                className="hover:bg-slate-500 dark:hover:text-slate-200 rounded-full p-1">
+                <Image src="icon-dark-mode.svg" alt="icon dark mode" width="28" height="28" className="dark:hidden" />
+
+                <Image src="icon-light-mode.svg" alt="icon light mode" width="28" height="28" className="hidden dark:inline"/>
               </button>
               <Link href="https://github.com/kdgilang" className="ml-6 block text-slate-700 dark:text-slate-200 hover:text-slate-500 dark:hover:text-slate-300">
                 <span className="sr-only">AI News on GitHub</span>
