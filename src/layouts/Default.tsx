@@ -20,7 +20,7 @@ export default function Default() {
               href="https://jnews.io/writy/2021/06/29/govt-distributes-free-medicines-to-support-self-isolating-patients/"
             />
           </div>
-          <div className="md:flex-initial md:w-4/12 ">
+          <div className="md:flex-initial md:w-4/12">
             <h2 className="text-lg border-b-2 border-slate-100 mb-6 pb-2 font-bold text-slate-700 dark:text-slate-200">
               Featured story
             </h2>
