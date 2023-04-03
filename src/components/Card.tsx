@@ -8,10 +8,11 @@ export type CardType = BasePropsType & {
   imageSrc: string
   imageAlt: string
   title: string
-  tag: string
+  tag?: string
   author: string
   date: string,
   href: string
+  body?: string
 }
 
 export enum ECardType {
@@ -48,19 +49,8 @@ const titleClassNames = {
   [ECardType.float]: "text-xl"
 }
 
-export default function Card(props: CardType) {
-  const {
-    id,
-    title,
-    type,
-    imageSrc,
-    imageAlt,
-    tag,
-    author,
-    date,
-    href,
-    className
-  } = props
+export default function Card(
+  { id, title, body, type, imageSrc, imageAlt, tag, author, date, href, className }: CardType) {
 
   return (
     <div key={id} className={`group relative ${containerClassNames[type]} ${className}`}>
@@ -84,6 +74,9 @@ export default function Card(props: CardType) {
         <p className="mt-2 text-xs text-slate-600 dark:text-slate-200">
           <span>By {author}</span> | <span>{date}</span>
         </p>
+        { body && <p className="mt-2 text-sm text-slate-700 dark:text-slate-200">
+          { body }
+        </p> }
       </div>
     </div>
   )
