@@ -13,15 +13,8 @@ module.exports = {
     },
     colors: {
       'white': '#FFFFFF',
-      'blue': '#1fb6ff',
-      'purple': '#7e5bef',
-      'pink': '#ff49db',
-      'orange': '#ff7849',
-      'green': '#13ce66',
-      'yellow': '#ffc82c',
-      'gray-dark': '#273444',
-      'gray': '#8492a6',
-      'gray-light': '#d3dce6',
+      'purpel': '#704674',
+      'green': '#1b8415'
     },
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
@@ -33,7 +26,7 @@ module.exports = {
     borderRadius: {
       'none': '0',
       'sm': '0.125rem',
-      DEFAULT: '3px',
+      DEFAULT: '4px',
       'md': '0.375rem',
       'lg': '0.5rem',
       'full': '9999px',
