@@ -13,6 +13,8 @@ export type CardType = BasePropsType & {
   date: string,
   href: string
   body?: string
+  aspect?: string
+  rowReverse?: boolean
 }
 
 export enum ECardType {
@@ -31,18 +33,6 @@ const product = {
   color: 'Black',
 }
 
-const containerClassNames = {
-  [ECardType.column]: "",
-  [ECardType.row]: "flex",
-  [ECardType.float]: ""
-}
-
-const contentClassNames = {
-  [ECardType.column]: "mt-4",
-  [ECardType.row]: "ml-4",
-  [ECardType.float]: "mt-4 md:absolute md:px-8 md:mt-0 md:py-4 md:bg-white md:dark:bg-slate-900 md:left-8 md:right-8 lg:right-auto md:bottom-8 rounded md:shadow md:bg-opacity-75"
-}
-
 const titleClassNames = {
   [ECardType.column]: "text-md",
   [ECardType.row]: "tex-md",
@@ -50,18 +40,38 @@ const titleClassNames = {
 }
 
 export default function Card(
-  { id, title, body, type, imageSrc, imageAlt, tag, author, date, href, className }: CardType) {
+  { id, title, body, type, imageSrc, imageAlt, rowReverse, tag, author, date, href, className, aspect }: CardType) {
+
+  const aspectClassName = aspect || 'video'
+
+  const containerClassNames = {
+    [ECardType.column]: "",
+    [ECardType.row]: `flex ${rowReverse ? 'flex-row-reverse' : ''}`,
+    [ECardType.float]: ""
+  }
+
+  const imageClassNames = {
+    [ECardType.column]: "w-full",
+    [ECardType.row]: "w-4/12",
+    [ECardType.float]: ""
+  }
+
+  const contentClassNames = {
+    [ECardType.column]: "mt-4 w-full",
+    [ECardType.row]: `w-4/6 ${rowReverse ? 'mr-4' : 'ml-4'}`,
+    [ECardType.float]: "mt-4 md:absolute md:px-8 md:mt-0 md:py-4 md:bg-white md:dark:bg-slate-900 md:left-8 md:right-8 lg:right-auto md:bottom-8 rounded md:shadow md:bg-opacity-75"
+  }
 
   return (
     <div key={id} className={`group relative ${containerClassNames[type]} ${className}`}>
-      <div className="w-full aspect-video overflow-hidden rounded-md bg-gray-200  lg:aspect-none group-hover:opacity-75">
+      <div className={`${imageClassNames[type]} aspect-${aspectClassName} overflow-hidden rounded bg-gray-200 lg:aspect-none group-hover:opacity-75`}>
         <Image
           src={imageSrc}
           alt={imageAlt}
-          width="120"
-          height="86"
+          width="200"
+          height="150"
           blurDataURL="/placeholder.png"
-          className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+          className="h-full w-full object-cover object-center"
         />
       </div>
       <div className={`transition ${contentClassNames[type]}`}>

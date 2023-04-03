@@ -10,7 +10,7 @@ export default function Footer() {
         <Image src="logo.svg" alt="AI News logo" width="100" height="50" className="dark:hidden" />
         <Image src="logo-dark.svg" alt="AI News logo" width="100" height="50" className="hidden dark:inline" />
       </Link>
-      <p className="mb-8 text-slate-700 darsk:text-slate-200">© 2023 AI News. All rights reserved.</p>
+      <p className="mb-8 text-slate-700 dark:text-slate-200">© 2023 AI News. All rights reserved.</p>
       <nav className="block text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
         <ul className="flex space-x-8">
           <li><Link className="transition hover:text-green" href="/docs/installation">Docs</Link></li>
