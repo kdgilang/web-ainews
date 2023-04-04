@@ -42,7 +42,7 @@ const titleClassNames = {
 export default function Card(
   { id, title, body, type, imageSrc, imageAlt, rowReverse, tag, author, date, href, className, aspect }: CardType) {
 
-  const aspectClassName = aspect || 'video'
+  const aspectType = aspect || 'video'
 
   const containerClassNames = {
     [ECardType.column]: "",
@@ -64,7 +64,7 @@ export default function Card(
 
   return (
     <div key={id} className={`group relative ${containerClassNames[type]} ${className}`}>
-      <div className={`${imageClassNames[type]} aspect-${aspectClassName} overflow-hidden rounded bg-gray-200 lg:aspect-none group-hover:opacity-75`}>
+      <div className={`${imageClassNames[type]} aspect-${aspectType} overflow-hidden rounded bg-gray-200 lg:aspect-none group-hover:opacity-75`}>
         <Image
           src={imageSrc}
           alt={imageAlt}

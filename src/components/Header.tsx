@@ -1,16 +1,30 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { useContext, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { BaseContext } from '@src/contexts/BaseContext'
 
 export default function Header() {
   const {state, setState} = useContext(BaseContext)
-  const [ toggleTheme, setToggleTheme] = useState(false)
+  
+  const applyThemeColorMode = () => {
+    setState({
+      ...state,
+      darkMode: !state.darkMode
+    })
+
+    document.getElementsByTagName('html')[0].className = !state.darkMode ? 'dark' : ''
+  }
+
+  useEffect(() => {
+    // detect system prefers color
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      applyThemeColorMode()
+    }
+
+  }, [])
 
   const handleThemeMode = () => {
-    setToggleTheme(!toggleTheme)
-
-    document.getElementsByTagName('html')[0].className = !toggleTheme ? 'dark' : ''
+    applyThemeColorMode()
   }
   
   return (

@@ -1,3 +1,3 @@
 export type StateType = {
-    htmlClassName: string
+    darkMode: boolean
 }

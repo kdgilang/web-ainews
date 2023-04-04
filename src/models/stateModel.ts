@@ -1,9 +1,9 @@
 import { StateType } from '@src/types/stateType'
 
 export class StateModel implements StateType {
-    htmlClassName: string
+    darkMode: boolean
 
     constructor() {
-        this.htmlClassName = ''
+        this.darkMode = false
     }
 }
