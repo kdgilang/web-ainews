@@ -1,36 +1,23 @@
 import Image from 'next/image'
 import { BasePropsType } from '@src/types/basePropsType'
 import Link from 'next/link'
+import { Suspense, useEffect, useState } from 'react'
+import { Configuration, OpenAIApi } from 'openai'
+import { NEXT_PUBLIC_OPEN_API_KEY } from '@src/consts/config'
+import Skeleton from 'react-loading-skeleton'
+import { ArticleType } from '@src/types/newsDtoType'
 
-export type CardType = BasePropsType & {
-  id: string
+export type CardType = BasePropsType & ArticleType & {
   type: ECardType
-  imageSrc: string
-  imageAlt: string
-  title: string
   tag?: string
-  author: string
-  date: string,
-  href: string
-  body?: string
-  aspect?: string
   rowReverse?: boolean
+  maxTitleLength?: number
 }
 
 export enum ECardType {
   row,
   column,
   float
-}
-
-const product = {
-  id: 1,
-  name: 'Basic Tee',
-  href: '#',
-  imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg',
-  imageAlt: "Front of men's Basic Tee in black.",
-  price: '$35',
-  color: 'Black',
 }
 
 const titleClassNames = {
@@ -40,9 +27,32 @@ const titleClassNames = {
 }
 
 export default function Card(
-  { id, title, body, type, imageSrc, imageAlt, rowReverse, tag, author, date, href, className, aspect }: CardType) {
+  { title, description, type, urlToImage, rowReverse, tag, author, publishedAt, url, className, maxTitleLength }: CardType) {
+  const [imgSrc, setImgSrc] = useState(urlToImage || '')
+  const [isImageLoaded, setIsImageLoaded] = useState(false)
 
-  const aspectType = aspect || 'video'
+  useEffect(() => {
+    const fetchImage = async () => {
+      const configuration = new Configuration({
+        apiKey: NEXT_PUBLIC_OPEN_API_KEY,
+      })
+      const openai = new OpenAIApi(configuration)
+
+      const response = await openai.createImage({
+        prompt: `a ${title} digital art`,
+        n: 1,
+        size: "512x512",
+      })
+  
+      setImgSrc(response.data.data[0].url || '')
+
+      setIsImageLoaded(true)
+    }
+
+    fetchImage()
+      .catch(() => setImgSrc(urlToImage || ''))
+      .finally(() => setIsImageLoaded(true))
+  })
 
   const containerClassNames = {
     [ECardType.column]: "",
@@ -59,33 +69,39 @@ export default function Card(
   const contentClassNames = {
     [ECardType.column]: "mt-4 w-full",
     [ECardType.row]: `w-4/6 ${rowReverse ? 'mr-4' : 'ml-4'}`,
-    [ECardType.float]: "mt-4 md:absolute md:px-8 md:mt-0 md:py-4 md:bg-white md:dark:bg-slate-900 md:left-8 md:right-8 lg:right-auto md:bottom-8 rounded md:shadow md:bg-opacity-75"
+    [ECardType.float]: "mt-4 md:absolute md:w-4/6 md:px-8 md:mt-0 md:py-4 md:bg-white md:dark:bg-slate-900 md:left-8 md:right-8 lg:right-auto md:bottom-8 rounded md:shadow md:bg-opacity-75"
   }
 
   return (
-    <div key={id} className={`group relative ${containerClassNames[type]} ${className}`}>
-      <div className={`${imageClassNames[type]} aspect-${aspectType} overflow-hidden rounded bg-gray-200 lg:aspect-none group-hover:opacity-75`}>
+    <div className={`group relative ${containerClassNames[type]} ${className}`}>
+      <div className={`relative ${imageClassNames[type]} aspect-[16/9] overflow-hidden rounded bg-gray-200 group-hover:opacity-75`}>
         <Image
-          src={imageSrc}
-          alt={imageAlt}
+          src={imgSrc}
+          alt={title}
           width="200"
           height="150"
+          placeholder="blur"
           blurDataURL="/placeholder.png"
           className="h-full w-full object-cover object-center"
         />
+        { !isImageLoaded && <Skeleton
+          containerClassName="w-full h-full object-cover absolute left-0 top-0"
+          className="w-full h-full object-cover"
+          highlightColor="#EFEFEF"
+          baseColor="#CCCCCC" /> }
       </div>
-      <div className={`transition ${contentClassNames[type]}`}>
+      <div className={`z-10 transition ${contentClassNames[type]}`}>
         <h3 className={`font-bold text-slate-700 dark:text-slate-200 ${titleClassNames[type]}`}>
-          <Link href={href} rel="noopener noreferrer" target="_blank">
+          <Link href={url} rel="noopener noreferrer" target="_blank">
             <span aria-hidden="true" className="absolute inset-0" />
-            {title}
+            {`${title.slice(0, maxTitleLength)}${title.length > (maxTitleLength || title.length) ? '...' : ''}`}
           </Link>
         </h3>
         <p className="mt-2 text-xs text-slate-600 dark:text-slate-200">
-          <span>By {author}</span> | <span>{date}</span>
+          <span>By {author}</span> | <span>{publishedAt}</span>
         </p>
-        { body && <p className="mt-2 text-sm text-slate-700 dark:text-slate-200">
-          { body }
+        { description && <p className="mt-2 text-sm text-slate-700 dark:text-slate-200">
+          { description }
         </p> }
       </div>
     </div>

@@ -1,20 +1,36 @@
-import { Configuration, OpenAIApi } from "openai"
+import newsProvider, { NewsParamsType } from '@src/providers/newsProvider'
+import { NewsItemType } from "@src/types/newsDtoType"
+import moment from 'moment'
 
-export default async function getNewsUseCase() {
+export default async function getNewsUseCase(): Promise<NewsItemType[]> {
 
-  const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  })
-  const openai = new OpenAIApi(configuration)
+  let newsParams: NewsParamsType = {
+    path: 'top-headlines',
+    query: 'country=id&category=business&pageSize=8'
+  }
 
-  // const completion = await openai.createCompletion({
-  //   model: "text-davinci-003",
-  //   prompt: "Hello world",
-  // })
-  const response = await openai.createImage({
-    prompt: "A cute baby sea otter",
-    n: 2,
-    size: "1024x1024",
+  const newsParams2 = {
+    path: 'top-headlines',
+    query: 'country=id&category=technology&pageSize=8'
+  }
+
+  const newsParams3 = {
+    path: 'top-headlines',
+    query: 'country=id&category=science&pageSize=8'
+  }
+
+  const response: NewsItemType[] = await Promise.all([
+    await newsProvider(newsParams),
+    await newsProvider(newsParams2),
+    await newsProvider(newsParams3)
+  ])
+
+  response.forEach(item => {
+    if (item?.articles) {
+      item.articles.forEach(article => {
+        article.publishedAt = moment(article.publishedAt).format('LL')
+      })
+    }
   })
 
   return response
