@@ -6,6 +6,7 @@ import { Configuration, OpenAIApi } from 'openai'
 import { NEXT_PUBLIC_OPEN_API_KEY } from '@src/consts/config'
 import Skeleton from 'react-loading-skeleton'
 import { ArticleType } from '@src/types/newsDtoType'
+import useTruncate from '@src/hooks/useTruncate'
 
 export type CardType = BasePropsType & ArticleType & {
   type: ECardType
@@ -30,6 +31,7 @@ export default function Card(
   { title, description, type, urlToImage, rowReverse, tag, author, publishedAt, url, className, maxTitleLength }: CardType) {
   const [imgSrc, setImgSrc] = useState(urlToImage || '')
   const [isImageLoaded, setIsImageLoaded] = useState(false)
+  const truncatedTitle = useTruncate(title, maxTitleLength || 0)
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -94,7 +96,7 @@ export default function Card(
         <h3 className={`font-bold text-slate-700 dark:text-slate-200 ${titleClassNames[type]}`}>
           <Link href={url} rel="noopener noreferrer" target="_blank">
             <span aria-hidden="true" className="absolute inset-0" />
-            {`${title.slice(0, maxTitleLength)}${title.length > (maxTitleLength || title.length) ? '...' : ''}`}
+            { truncatedTitle }
           </Link>
         </h3>
         <p className="mt-2 text-xs text-slate-600 dark:text-slate-200">
