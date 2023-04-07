@@ -5,11 +5,12 @@ import CardSection from "@src/components/CardSection"
 import SubscribeForm from "@src/components/SubscribeForm"
 import Title from "@src/components/Title"
 import HomeSkeleton from "@src/components/HomeSkeleton"
-import { Suspense } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { NEWS_API_PATH } from '@src/consts/pathApi'
 import { BasePropsType } from '@src/types/basePropsType'
 import { NewsDtoType } from '@src/types/newsDtoType'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { NextPageContext } from 'next'
 
 type HompePropsType = BasePropsType & {
   news: NewsDtoType
@@ -17,9 +18,7 @@ type HompePropsType = BasePropsType & {
 
 function Home({ news }: HompePropsType) {
   const { business, technology, science,  } = news
-
-  const businessRight = business
-  businessRight.articles.slice(0)
+  
   return (
     <>
       <Head>
@@ -38,6 +37,8 @@ function Home({ news }: HompePropsType) {
                 tag="executive"
                 {...business.articles[0]}
                 className=""
+                description=""
+                content=""
               />
             </div>
             <div className="mt-6 md:mt-0 md:flex-initial md:w-4/12">
@@ -90,8 +91,15 @@ function Home({ news }: HompePropsType) {
   )
 }
 
-Home.getInitialProps = async () => {
-  const res = await fetch(NEWS_API_PATH)
+Home.getInitialProps = async (ctx: NextPageContext) => {
+  // console.log((ctx.req?.headers.c))
+  const res = await fetch(NEWS_API_PATH,
+    ctx?.req?.headers?.cookie ? {
+      headers: {
+        cookie: ctx.req.headers.cookie
+      }
+    } : {}
+  )
   const json = await res.json()
   return { news: json }
 }

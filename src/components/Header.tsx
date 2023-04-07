@@ -1,10 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { BaseContext } from '@src/contexts/BaseContext'
+import Dropdown, { DropdownItemModel, DropdownItemType, DropdownType } from './Dropdown'
+import { regions } from '@src/consts/staticData'
+import { setCookie, getCookie } from 'cookies-next'
+import { useRouter } from 'next/router'
 
 export default function Header() {
   const {state, setState} = useContext(BaseContext)
+  const [dropdownRegions, setDropdownRegions] = useState<DropdownItemType[]>(new Array<DropdownItemModel>())
+  const [region, setRegion] = useState<DropdownItemType>(new DropdownItemModel())
+  const router = useRouter()
   
   const applyThemeColorMode = () => {
     setState({
@@ -21,7 +28,26 @@ export default function Header() {
       applyThemeColorMode()
     }
 
+    let newRegions: DropdownItemType[] = []
+    regions.forEach(r => {
+      newRegions.push({
+        label: r.name,
+        value: r.shortName,
+        href: '#'
+      })
+    })
+
+    setDropdownRegions(newRegions)
   }, [])
+
+  useEffect(() => {
+    const cookieRegion = getCookie('region')
+    const regionFound = dropdownRegions?.find(item => item.value === cookieRegion) || dropdownRegions[0]
+
+    if (regionFound) {
+      setRegion(regionFound)
+    }
+  }, [dropdownRegions])
 
   const handleThemeMode = () => {
     applyThemeColorMode()
@@ -45,6 +71,15 @@ export default function Header() {
               </ul>
             </nav>
             <div className="ml-auto flex items-center dark:border-slate-800">
+              <Dropdown
+                className="mr-6"
+                items={dropdownRegions}
+                value={region}
+                onDropdownChange={(item) => { 
+                  setCookie('region', item.value)
+                  router.reload()
+                }}
+              />
               <label className="sr-only" id="headlessui-listbox-label-3" data-headlessui-state="">Theme</label>
               <button 
                 onClick={handleThemeMode}

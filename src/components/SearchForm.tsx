@@ -17,6 +17,7 @@ export default function SearchForm({ className }: BasePropsType) {
         />
         <button
           type="submit"
+          aria-label="submit search from"
           className="flex-none transition rounded bg-green px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
         >
           <MagnifyingGlassIcon className="h-6 w-6 text-white" aria-hidden="true" />

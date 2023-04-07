@@ -5,7 +5,7 @@ import { ArticleType } from "@src/types/newsDtoType"
 
 const gridClassNames = {
   [ECardType.column]: "grid md:grid-cols-4 grid-flow-col gap-4",
-  [ECardType.row]: "grid md:grid-rows-4 gap-4",
+  [ECardType.row]: "grid md:grid-rows-3 gap-4",
   [ECardType.float]: ""
 }
 
@@ -20,6 +20,9 @@ export default function CardSection({ title, cards, type, className }: CardSecti
             type={type}
             maxTitleLength={100}
             tag="executive"
+            description=""
+            content=""
+            className=""
           />
         )
         )}
