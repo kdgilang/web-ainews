@@ -1,6 +1,6 @@
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import classNames from '@src/helpers/classNames'
-import { BasePropsType } from "@src/types/basePropsType"
+import { BasePropsType } from "@src/types/bobPropsType"
 
 export type SubscribeFormType = BasePropsType & {
   isMinimal?: boolean

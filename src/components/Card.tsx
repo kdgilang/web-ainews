@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { BasePropsType } from '@src/types/basePropsType'
+import { BasePropsType } from '@src/types/bobPropsType'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Configuration, OpenAIApi } from 'openai'

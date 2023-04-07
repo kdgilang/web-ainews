@@ -1,6 +1,6 @@
 import Card, { ECardType, CardType } from "@src/components/Card"
 import Title from "@src/components/Title"
-import { BasePropsType } from "@src/types/basePropsType"
+import { BasePropsType } from "@src/types/bobPropsType"
 import { ArticleType } from "@src/types/newsDtoType"
 
 const gridClassNames = {

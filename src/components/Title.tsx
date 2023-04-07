@@ -1,4 +1,4 @@
-import { BasePropsType } from "@src/types/basePropsType"
+import { BasePropsType } from "@src/types/bobPropsType"
 
 export default function Title({ value }: TitleType) {
   return (

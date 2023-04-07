@@ -7,7 +7,7 @@ import Title from "@src/components/Title"
 import HomeSkeleton from "@src/components/HomeSkeleton"
 import { Suspense } from 'react'
 import { NEWS_API_PATH } from '@src/consts/pathApi'
-import { BasePropsType } from '@src/types/basePropsType'
+import { BasePropsType } from '@src/types/bobPropsType'
 import { NewsDtoType } from '@src/types/newsDtoType'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { NextPageContext } from 'next'

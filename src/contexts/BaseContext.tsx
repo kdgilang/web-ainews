@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction, useState } from 'react'
-import { BasePropsType } from '@src/types/basePropsType'
+import { BasePropsType } from '@src/types/bobPropsType'
 import { StateModel } from '@src/models/stateModel'
 import { StateType } from '@src/types/stateType'
 
