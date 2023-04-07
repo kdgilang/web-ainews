@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { BasePropsType } from '@src/types/bobPropsType'
+import { BasePropsType } from '@src/types/basePropsType'
 import classNames from '@src/helpers/classNames'
 
 export type DropdownItemType = {

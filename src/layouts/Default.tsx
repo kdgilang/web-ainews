@@ -1,6 +1,6 @@
 import Header from "@src/components/Header"
 import Footer from "@src/components/Footer"
-import { BasePropsType } from "@src/types/bobPropsType"
+import { BasePropsType } from "@src/types/basePropsType"
 
 export default function Default({ children }: BasePropsType) {
   return (

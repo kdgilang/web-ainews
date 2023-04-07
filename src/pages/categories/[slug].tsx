@@ -6,7 +6,7 @@ import Card, { ECardType } from "@src/components/Card"
 import CardSection from "@src/components/CardSection"
 import { NEWS_API_PATH } from '@src/consts/pathApi'
 import Title from "@src/components/Title"
-import { BasePropsType } from '@src/types/bobPropsType'
+import { BasePropsType } from '@src/types/basePropsType'
 import { NewsDtoType } from '@src/types/newsDtoType'
 import SubscribeForm from "@src/components/SubscribeForm"
 

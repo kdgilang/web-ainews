@@ -1,4 +1,4 @@
-import { BasePropsType } from "@src/types/bobPropsType"
+import { BasePropsType } from "@src/types/basePropsType"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 
 export default function SearchForm({ className }: BasePropsType) {
