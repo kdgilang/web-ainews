@@ -6,6 +6,7 @@ import Dropdown, { DropdownItemModel, DropdownItemType, DropdownType } from './D
 import { regions } from '@src/consts/staticData'
 import { setCookie, getCookie } from 'cookies-next'
 import { useRouter } from 'next/router'
+import Navigation from './Navigation'
 
 export default function Header() {
   const {state, setState} = useContext(BaseContext)
@@ -60,16 +61,10 @@ export default function Header() {
           <div className="relative flex items-center">
             <Link className="mr-3 flex-none w-[2.0625rem] overflow-hidden md:w-auto" href="/">
               <span className="sr-only">AI News home page</span>
-              <Image src="logo.svg" alt="AI News logo" width="100" height="50" className="dark:hidden"/>
-              <Image src="logo-dark.svg" alt="AI News logo" width="100" height="50" className="hidden dark:inline"/>
+              <Image src="/logo.svg" alt="AI News logo" width="100" height="50" className="dark:hidden"/>
+              <Image src="/logo-dark.svg" alt="AI News logo" width="100" height="50" className="hidden dark:inline"/>
             </Link>
-            <nav className="block ml-8 text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
-              <ul className="flex space-x-8">
-                <li><Link className="hover:text-sky-500 dark:hover:text-sky-400 before:content-[''] transition-all before:w-0 before:transition-all relative before:border-b-2 before:border-green before:top-full before:absolute before:left-0 hover:before:w-4/6 focus:before:w-4/6" href="/docs/installation">Docs</Link></li>
-                <li><Link href="https://tailwindui.com/?ref=top" className="hover:text-sky-500 dark:hover:text-sky-400">Components</Link></li>
-                <li><Link className="hover:text-sky-500 dark:hover:text-sky-400" href="/blog">Blog</Link></li>
-              </ul>
-            </nav>
+            <Navigation />
             <div className="ml-auto flex items-center dark:border-slate-800">
               <Dropdown
                 className="mr-6"
@@ -84,9 +79,9 @@ export default function Header() {
               <button 
                 onClick={handleThemeMode}
                 className="hover:bg-slate-500 dark:hover:text-slate-200 rounded-full p-1">
-                <Image src="icon-dark-mode.svg" alt="icon dark mode" width="28" height="28" className="dark:hidden" />
+                <Image src="/icon-dark-mode.svg" alt="icon dark mode" width="28" height="28" className="dark:hidden" />
 
-                <Image src="icon-light-mode.svg" alt="icon light mode" width="28" height="28" className="hidden dark:inline"/>
+                <Image src="/icon-light-mode.svg" alt="icon light mode" width="28" height="28" className="hidden dark:inline"/>
               </button>
               <Link href="https://github.com/kdgilang" rel="noopener noreferrer" target="_blank" className="ml-6 block text-slate-700 dark:text-slate-200 hover:text-slate-500 dark:hover:text-slate-300">
                 <span className="sr-only">AI News on GitHub</span>

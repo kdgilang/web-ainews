@@ -2,10 +2,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { BasePropsType } from '@src/types/basePropsType'
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
+import classNames from '@src/helpers/classNames'
 
 export type DropdownItemType = {
   label: string
@@ -37,7 +34,7 @@ export default function Dropdown({ className, items, value, onDropdownChange }: 
     if (value) {
       setSelectedValue(value)
     }
-    
+
   }, [value])
 
   return (

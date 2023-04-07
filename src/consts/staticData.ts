@@ -18,3 +18,35 @@ export const regions: RegionType[] = [
   }
 ]
 
+export const categories = [
+  {
+    id: 1,
+    name: 'business',
+    label: 'Business'
+  },
+  {
+    id: 2,
+    name: 'technology',
+    label: 'Technology'
+  },
+  {
+    id: 3,
+    name: 'health',
+    label: 'Health'
+  },
+  {
+    id: 4,
+    name: 'science',
+    label: 'Science'
+  },
+  {
+    id: 5,
+    name: 'sports',
+    label: 'Sports'
+  },
+  {
+    id: 6,
+    name: 'entertainment',
+    label: 'Entertainment'
+  },
+]

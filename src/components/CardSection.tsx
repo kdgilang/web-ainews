@@ -5,21 +5,21 @@ import { ArticleType } from "@src/types/newsDtoType"
 
 const gridClassNames = {
   [ECardType.column]: "grid md:grid-cols-4 grid-flow-col gap-4",
-  [ECardType.row]: "grid md:grid-rows-3 gap-4",
+  [ECardType.row]: "grid md:grid-rows-4 gap-4",
   [ECardType.float]: ""
 }
 
 export default function CardSection({ title, cards, type, className }: CardSectionType) {
+  console.log(cards)
   return (
     <div className={className}>
       <Title value={title} />
       <div className={gridClassNames[type]}>
-        {cards && cards.map((item, index) => (<Card
+        {cards?.map((item, index) => (<Card
             key={`card-${index}`}
             { ...item }
             type={type}
-            maxTitleLength={100}
-            tag="executive"
+            maxTitleLength={50}
             description=""
             content=""
             className=""

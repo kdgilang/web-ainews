@@ -1,18 +1,42 @@
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
+import classNames from '@src/helpers/classNames'
 import { BasePropsType } from "@src/types/basePropsType"
 
-export default function SubscribeForm({ className }: BasePropsType) {
+export type SubscribeFormType = BasePropsType & {
+  isMinimal?: boolean
+}
+
+export default function SubscribeForm({ className, isMinimal }: SubscribeFormType) {
   return (
-    <div className={`relative isolate overflow-hidden bg-slate-700 rounded py-16 ${className}`}>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
-          <div className="max-w-xl lg:max-w-lg">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Subscribe to our newsletter.</h2>
-            <p className="mt-4 text-lg leading-8 text-gray-300">
-              Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing velit quis. Duis tempor incididunt
-              dolore.
+    <div className={classNames(
+        "relative isolate overflow-hidden bg-slate-700 rounded ",
+        isMinimal ? "py-6" : "py-16",
+        `${className}`
+    )}>
+      <div className={classNames(
+          "mx-auto",
+          isMinimal ? "w-full px-6" : " max-w-7xl px-6 lg:px-8"
+      )}>
+        <div className={classNames(
+              "mx-auto",
+              isMinimal ? "w-full" : "grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2"
+            )}>
+          <div className={classNames(
+              "",
+              isMinimal ? "w-full" : "max-w-xl lg:max-w-lg"
+            )}>
+            { isMinimal ? <h3 className="text-md font-bold text-white">Get daily news updates to your inbox!</h3> :
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Subscribe to our newsletter.</h2> }
+            <p className={classNames(
+              "mt-2 text-gray-300",
+              isMinimal ? "text-sm" : "mt-4 text-lg leading-8"
+            )}>
+              Subscribe to our mailing list to receives daily updates!
             </p>
-            <form className="mt-6 flex max-w-md gap-x-4">
+            <form className={classNames(
+              "flex mt-6 gap-x-4",
+              isMinimal ? "w-full flex-column" : "flex-row max-w-md"
+            )}>
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
@@ -33,6 +57,7 @@ export default function SubscribeForm({ className }: BasePropsType) {
               </button>
             </form>
           </div>
+          { !isMinimal && 
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
             <div className="flex flex-col items-start">
               <div className="rounded bg-white/5 p-2 ring-1 ring-white/10">
@@ -52,7 +77,7 @@ export default function SubscribeForm({ className }: BasePropsType) {
                 Officia excepteur ullamco ut sint duis proident non adipisicing. Voluptate incididunt anim.
               </dd>
             </div>
-          </dl>
+          </dl> }
         </div>
       </div>
       <div className="absolute left-1/2 top-0 -z-10 -translate-x-1/2 blur-3xl xl:-top-6" aria-hidden="true">

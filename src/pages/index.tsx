@@ -5,12 +5,13 @@ import CardSection from "@src/components/CardSection"
 import SubscribeForm from "@src/components/SubscribeForm"
 import Title from "@src/components/Title"
 import HomeSkeleton from "@src/components/HomeSkeleton"
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense } from 'react'
 import { NEWS_API_PATH } from '@src/consts/pathApi'
 import { BasePropsType } from '@src/types/basePropsType'
 import { NewsDtoType } from '@src/types/newsDtoType'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { NextPageContext } from 'next'
+import SearchForm from "@src/components/SearchForm"
 
 type HompePropsType = BasePropsType & {
   news: NewsDtoType
@@ -30,22 +31,25 @@ function Home({ news }: HompePropsType) {
       
       <Suspense fallback={<HomeSkeleton />}>
         <Default>
-          <div className="md:flex">
-            <div className="md:flex-initial md:w-4/6 md:pr-8">
+      
+          <SearchForm className="mb-16 w-4/6 mx-auto" />
+
+          <div className="lg:flex">
+            <div className="lg:flex-initial lg:w-4/6 lg:pr-8">
               <Card 
                 type={ECardType.float}
-                tag="executive"
+                label="executive"
                 {...business.articles[0]}
                 className=""
                 description=""
                 content=""
               />
             </div>
-            <div className="mt-6 md:mt-0 md:flex-initial md:w-4/12">
+            <div className="mt-6 lg:mt-0 lg:flex-initial lg:w-4/12">
               <CardSection
                 title="Featured story"
                 type={ECardType.row}
-                cards={business?.articles?.slice(1, 4)} />
+                cards={business?.articles?.slice(1, 5)} />
             </div>
           </div>
 
@@ -60,24 +64,24 @@ function Home({ news }: HompePropsType) {
           <div className="mt-6 md:mt-10">
             <Title value="Latest story" />
 
-            <div className="md:flex">
-              <div className="md:flex-initial md:w-4/6 md:pr-8 grid gap-4">
+            <div className="lg:flex">
+              <div className="lg:flex-initial lg:w-4/6 lg:pr-8 grid gap-6">
                   {science?.articles?.map((item, index) => (<Card
                         key={`card-science-${index}`}
                         { ...item }
                         type={ECardType.row}
                         rowReverse={true}
-                        tag="executive"
+                        label="executive"
                       />
                     )
                   )}
               </div>
-              <div className="mt-6 md:mt-0 md:flex-initial md:w-4/12">
+              <div className="mt-6 lg:mt-0 lg:flex-initial lg:w-4/12">
                 <div className="md:sticky md:top-20 md:z-50">
                   <Title value="Super story" />
                   <Card 
                     type={ECardType.column} 
-                    tag="executive"
+                    label="executive"
                     {...business.articles[0]}
                     className=""
                   />
