@@ -39,7 +39,8 @@ export default function Header() {
     })
 
     setDropdownRegions(newRegions)
-  }, [])
+
+  }, []) // eslint-disable-line
 
   useEffect(() => {
     const cookieRegion = getCookie('region')

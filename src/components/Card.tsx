@@ -118,7 +118,7 @@ export default function Card(
           </Link>
         </h3>
         <p className="mt-2 text-xs text-slate-600 dark:text-slate-200">
-          <span>By {author ? author : 'unknown'}</span> | <span>{publishedAt}</span>
+          <span>By <strong>{author ? author : 'unknown'}</strong></span> | <span>{publishedAt}</span>
         </p>
         { description && <p className="mt-2 text-sm text-slate-700 dark:text-slate-200">
           { truncatedDescription }
