@@ -25,12 +25,10 @@ export default async function getNewsUseCase(region: string = ''): Promise<NewsI
     await newsProvider(newsParams3)
   ])
 
-  response.forEach(item => {
-    if (item?.articles) {
-      item.articles.forEach(article => {
-        article.publishedAt = moment(article.publishedAt).format('LL')
-      })
-    }
+  response?.forEach(item => {
+    item?.articles?.forEach(article => {
+      article.publishedAt = moment(article.publishedAt).format('LL')
+    })
   })
 
   return response

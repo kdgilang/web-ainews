@@ -8,7 +8,7 @@ export default async function handler(
   res: NextApiResponse<NewsDtoType>
 ) {
   try {
-    const newsRes = await getNewsUseCase(req.cookies?.region)
+    const newsRes = await getNewsUseCase(req.cookies.region)
     const response: NewsDtoType = {
       business: newsRes[0],
       technology: newsRes[1],
