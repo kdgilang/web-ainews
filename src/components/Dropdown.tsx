@@ -45,7 +45,7 @@ export default function Dropdown({ className, items, value, onDropdownChange }: 
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded bg-green px-3 py-2 text-sm font-semibold text-white ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
           { selectedValue.label }
-          <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
+          <ChevronDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
         </Menu.Button>
       </div>
 

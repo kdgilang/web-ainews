@@ -9,6 +9,7 @@ import Title from "@src/components/Title"
 import { BasePropsType } from '@src/types/basePropsType'
 import { NewsDtoType } from '@src/types/newsDtoType'
 import SubscribeForm from "@src/components/SubscribeForm"
+import BreadCrumb from '@src/components/BreadCrumb'
 
 export type CategoryPropsType = BasePropsType & {
   news: NewsDtoType
@@ -22,7 +23,7 @@ const Category = ({ news }: CategoryPropsType) => {
   return (
     <>
       <Head>
-        <title>{ slug } | Category </title>
+        <title>{ `${slug} | Category` }</title>
         <meta name="description" content="AI News provide relevant news you needs" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -38,6 +39,8 @@ const Category = ({ news }: CategoryPropsType) => {
           label={`${slug}`}
           imageClassName="md:aspect-[2.39/1]"
         />
+
+        <BreadCrumb className="mt-6 lg:mt-10" />
 
         <div className="mt-6 md:mt-10">
           <Title value="Latest story" />
