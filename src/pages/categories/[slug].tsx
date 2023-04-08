@@ -4,19 +4,18 @@ import { NextPageContext } from 'next'
 import Default from '@src/layouts/Default'
 import Card, { ECardType } from "@src/components/Card"
 import CardSection from "@src/components/CardSection"
-import { NEWS_API_PATH } from '@src/consts/pathApi'
+import { NEWS_API_PATH, NEWS_CATEGORY_API_PATH } from '@src/consts/pathApi'
 import Title from "@src/components/Title"
 import { BasePropsType } from '@src/types/basePropsType'
-import { NewsDtoType } from '@src/types/newsDtoType'
+import { NewsItemType } from '@src/types/newsDtoType'
 import SubscribeForm from "@src/components/SubscribeForm"
 import BreadCrumb from '@src/components/BreadCrumb'
 
 export type CategoryPropsType = BasePropsType & {
-  news: NewsDtoType
+  news: NewsItemType
 }
 
 const Category = ({ news }: CategoryPropsType) => {
-  const { business, technology, science,  } = news
   const router = useRouter()
   const { slug } = router.query
 
@@ -32,7 +31,7 @@ const Category = ({ news }: CategoryPropsType) => {
       <Default>
         <Card 
           type={ECardType.float}
-          {...business.articles?.[0]}
+          {...news?.articles?.[0]}
           className="w-full"
           description=""
           content=""
@@ -47,7 +46,7 @@ const Category = ({ news }: CategoryPropsType) => {
 
           <div className="lg:flex">
             <div className="lg:flex-initial lg:w-4/6 lg:pr-8 grid gap-6">
-                {science?.articles?.map((item, index) => (<Card
+                {news?.articles?.map((item, index) => (<Card
                       key={`card-science-${index}`}
                       { ...item }
                       type={ECardType.row}
@@ -60,7 +59,7 @@ const Category = ({ news }: CategoryPropsType) => {
               <CardSection
                 title="Recommended"
                 type={ECardType.row}
-                cards={business?.articles?.slice(1, 5)} />
+                cards={news?.articles?.slice(1, 5)} />
               
               <SubscribeForm className="mt-6" isMinimal={true} />
 
@@ -69,7 +68,7 @@ const Category = ({ news }: CategoryPropsType) => {
                 <Card 
                   type={ECardType.column}
                   label="executive"
-                  {...business.articles?.[0]}
+                  {...news?.articles?.[0]}
                   className=""
                 />
               </div>
@@ -82,8 +81,8 @@ const Category = ({ news }: CategoryPropsType) => {
 }
 
 Category.getInitialProps = async (ctx: NextPageContext) => {
-  // console.log((ctx.req?.headers.c))
-  const res = await fetch(NEWS_API_PATH,
+  const { slug } = ctx.query
+  const res = await fetch(NEWS_CATEGORY_API_PATH(slug as string),
     ctx?.req?.headers?.cookie ? {
       headers: {
         cookie: ctx.req.headers.cookie
