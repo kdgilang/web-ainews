@@ -4,52 +4,41 @@ import { useRouter } from 'next/router'
 import classNames from '@src/helpers/classNames'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
+import Dropdown, { DropdownItemModel, DropdownItemType } from './Dropdown'
 
 export default function Navigation() {
   const router = useRouter()
+  const [menu, setMenu] = useState<DropdownItemType[]>(Array<DropdownItemModel>())
+
+  useEffect(() => {
+    let newMenu: DropdownItemType[] = []
+    categories.forEach(m => {
+      newMenu.push({
+        label: m.label,
+        value: m.name,
+        href: `/categories/${m.name}`
+      })
+    })
+
+    setMenu(newMenu)
+  }, [])
 
   return (
     <nav className="block xl:ml-8 text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
-      <Menu as="div" className={ classNames(
-        'relative block text-left lg:hidden'
-      ) }>
-        <Menu.Button className="block rounded text-slate-900 dark:text-white hover:bg-gray-50">
-          <span className="sr-only">open navigation menu</span>
-          <Bars3Icon className={classNames(
-            "h-8 w-8 align-middle"
-          )} aria-label="open navigation menu" />
-        </Menu.Button>
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className="absolute left-0 z-10 mt-2 w-56 bg-slate-900/90 origin-top-right divide-y divide-gray-100 rounded text-white focus:outline-none">
-            <div className="py-1">
-              {categories?.map((item, index) => (
-                <Menu.Item key={`${item.name}-${index}`}>
-                  {({ active }) => (
-                    <a
-                      href={`/categories/${item.name}`}
-                      className={classNames(
-                        active ? 'bg-white/40' : ' text-white',
-                        'block px-4 py-2 text-sm'
-                      )}
-                    >
-                      { item.label }
-                    </a>
-                  )}
-                </Menu.Item>
-              ))}
-            </div>
-          </Menu.Items>
-        </Transition>
-      </Menu>
+      <Dropdown
+        className={classNames("relative block text-left lg:hidden")}
+        value={menu[0]}
+        items={menu}
+        buttonEl={(
+          <Menu.Button className="block rounded text-slate-900 dark:text-white hover:bg-gray-50">
+            <span className="sr-only">open navigation menu</span>
+            <Bars3Icon className={classNames(
+              "h-8 w-8 align-middle"
+            )} aria-label="open navigation menu" />
+          </Menu.Button>)
+        }
+      />
 
       <ul className="space-x-6 xl:space-x-8 hidden lg:flex">
         <li>

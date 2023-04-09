@@ -3,6 +3,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { BasePropsType } from '@src/types/basePropsType'
 import classNames from '@src/helpers/classNames'
+import Link from 'next/link'
 
 export type DropdownItemType = {
   label: string
@@ -13,6 +14,7 @@ export type DropdownItemType = {
 export type DropdownType = BasePropsType & {
   items: DropdownItemType[]
   value: DropdownItemType
+  buttonEl?: JSX.Element
   onDropdownChange?(val: DropdownItemType): void
 }
 
@@ -27,7 +29,7 @@ export class DropdownItemModel implements DropdownItemType {
   }
 }
 
-export default function Dropdown({ className, items, value, onDropdownChange }: DropdownType) {
+export default function Dropdown({ className, items, value, buttonEl, onDropdownChange }: DropdownType) {
   const [selectedValue, setSelectedValue] = useState<DropdownItemType>(value || new DropdownItemModel())
 
   useEffect(() => {
@@ -39,15 +41,13 @@ export default function Dropdown({ className, items, value, onDropdownChange }: 
 
   return (
     <Menu as="div" className={ classNames(
+        'relative text-left',
         className || '',
-        'relative inline-block text-left'
     ) }>
-      <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 text-xs font-semibold text-white hover:bg-gray-50">
-          { selectedValue.label }
-          <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
-        </Menu.Button>
-      </div>
+      { buttonEl ? buttonEl : <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 text-xs font-semibold text-white hover:bg-gray-50">
+        { selectedValue.label }
+        <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
+      </Menu.Button> }
 
       <Transition
         as={Fragment}
@@ -59,15 +59,15 @@ export default function Dropdown({ className, items, value, onDropdownChange }: 
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute left-0 z-10 mt-2 w-40 bg-slate-900/90 origin-top-right divide-y divide-gray-100 rounded text-white focus:outline-none">
-          <div className="py-1">
+          <div className="py-4">
             {items?.map((item, index) => (
               <Menu.Item key={`${item.value}-${index}`}>
                 {({ active }) => (
-                  <a
+                  <Link
                     href={item.href}
                     className={classNames(
-                      active ? 'bg-white/40' : ' text-white',
-                      'block px-4 py-2 text-sm'
+                      selectedValue.value === item.value ? 'before:w-4/12' : '',
+                      "block px-4 my-2 text-sm before:content-[''] transition-all before:w-0 before:transition-all relative before:border-b-2 before:border-green before:top-full before:absolute"
                     )}
                     onClick={() => {
                       setSelectedValue(item)
@@ -77,7 +77,7 @@ export default function Dropdown({ className, items, value, onDropdownChange }: 
                     }}
                   >
                     { item.label }
-                  </a>
+                  </Link>
                 )}
               </Menu.Item>
             ))}
