@@ -44,7 +44,7 @@ export default function Dropdown({ className, items, value, buttonEl, onDropdown
         'relative text-left',
         className || '',
     ) }>
-      { buttonEl ? buttonEl : <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 text-xs font-semibold text-white hover:bg-gray-50">
+      { buttonEl ? buttonEl : <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 text-xs font-semibold dark:text-white text-slate-900 hover:bg-gray-50">
         { selectedValue.label }
         <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
       </Menu.Button> }
@@ -66,7 +66,7 @@ export default function Dropdown({ className, items, value, buttonEl, onDropdown
                   <Link
                     href={item.href}
                     className={classNames(
-                      selectedValue.value === item.value ? 'before:w-4/12' : '',
+                      selectedValue.value === item.value ? 'before:w-4/12git' : '',
                       "block px-4 my-2 text-sm before:content-[''] transition-all before:w-0 before:transition-all relative before:border-b-2 before:border-green before:top-full before:absolute"
                     )}
                     onClick={() => {
