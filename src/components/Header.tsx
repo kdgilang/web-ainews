@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { useContext, useEffect, useState } from 'react'
-import { BaseContext } from '@src/contexts/BaseContext'
-import Dropdown, { DropdownItemModel, DropdownItemType, DropdownType } from './Dropdown'
+import { useEffect, useState } from 'react'
+import Dropdown, { DropdownItemModel, DropdownItemType } from './Dropdown'
 import { regions } from '@src/consts/staticData'
 import { setCookie, getCookie } from 'cookies-next'
 import { useRouter } from 'next/router'
@@ -55,7 +54,7 @@ export default function Header() {
       <div className="max-w-8xl mx-auto">
         <div className="py-4 border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-green/40 px-4">
           <div className="relative flex items-center">
-            <Link className="mr-3 flex-none w-[2.0625rem] overflow-hidden md:w-auto" href="/">
+            <Link className="mr-3 w-[2.0625rem] overflow-hidden md:w-auto hidden sm:block" href="/">
               <span className="sr-only">AI News home page</span>
               <Image src="/logo.svg" alt="AI News logo" width="100" height="50" className="dark:hidden"/>
               <Image src="/logo-dark.svg" alt="AI News logo" width="100" height="50" className="hidden dark:inline"/>
