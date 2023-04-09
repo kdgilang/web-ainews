@@ -111,7 +111,7 @@ export default function Card(
         (label && type === ECardType.float) ? "md:pt-12" : ""
       )}>
         { (label && type === ECardType.float) && <p className="hidden md:block text-white font-bold uppercase text-xs bg-green px-4 py-2 absolute rounded-bl rounded-br top-0">{ label }</p> }
-        <h3 className={`font-bold text-slate-700 dark:text-slate-200 ${titleClassNames[type]}`}>
+        <h3 className={`break-words font-bold text-slate-700 dark:text-slate-200 ${titleClassNames[type]}`}>
           <Link href={ url || '#' } rel="noopener noreferrer" target="_blank">
             <span aria-hidden="true" className="absolute inset-0" />
             { truncatedTitle }
@@ -120,7 +120,7 @@ export default function Card(
         <p className="mt-2 text-xs text-slate-600 dark:text-slate-200">
           <span>By <strong>{author ? author : 'unknown'}</strong></span> | <span>{publishedAt}</span>
         </p>
-        { description && <p className="mt-2 text-sm text-slate-700 dark:text-slate-200">
+        { description && <p className="break-words mt-2 text-sm text-slate-700 dark:text-slate-200">
           { truncatedDescription }
         </p> }
       </div>
