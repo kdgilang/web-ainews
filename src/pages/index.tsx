@@ -95,16 +95,19 @@ function Home({ news }: HompePropsType) {
   )
 }
 
-export async function getServerSideProps(ctx: NextPageContext) {
-  // console.log((ctx.req?.headers.c))
-  const res = await fetch(NEWS_API_PATH,
-    ctx?.req?.headers?.cookie ? {
+export async function getServerSideProps({req, res}: NextPageContext) {
+  res?.setHeader(
+    'Cache-Control',
+    'public, s-maxage=100, stale-while-revalidate=59'
+  )
+  const newsRes = await fetch(NEWS_API_PATH,
+    req?.headers?.cookie ? {
       headers: {
-        cookie: ctx.req.headers.cookie
+        cookie: req.headers.cookie
       }
     } : {}
   )
-  const news = await res.json()
+  const news = await newsRes.json()
   return { props: { news } }
 }
 
