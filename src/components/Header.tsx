@@ -14,19 +14,19 @@ export default function Header() {
   const [region, setRegion] = useState<DropdownItemType>(new DropdownItemModel())
   const router = useRouter()
   
-  const applyThemeColorMode = () => {
+  const applyThemeColorMode = (val: boolean) => {
     setState({
       ...state,
-      darkMode: !state.darkMode
+      darkMode: val
     })
 
-    document.getElementsByTagName('html')[0].className = !state.darkMode ? 'dark' : ''
+    document.getElementsByTagName('html')[0].className = val ? 'dark' : ''
   }
 
   useEffect(() => {
     // detect system prefers color
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      applyThemeColorMode()
+      applyThemeColorMode(true)
     }
 
     let newRegions: DropdownItemType[] = []
@@ -52,7 +52,7 @@ export default function Header() {
   }, [dropdownRegions])
 
   const handleThemeMode = () => {
-    applyThemeColorMode()
+    applyThemeColorMode(!state.darkMode)
   }
   
   return (
