@@ -80,7 +80,7 @@ const Category = ({ news }: CategoryPropsType) => {
   )
 }
 
-Category.getInitialProps = async (ctx: NextPageContext) => {
+export async function getServerSideProps(ctx: NextPageContext) {
   const { slug } = ctx.query
   const res = await fetch(NEWS_CATEGORY_API_PATH(slug as string),
     ctx?.req?.headers?.cookie ? {
@@ -90,10 +90,9 @@ Category.getInitialProps = async (ctx: NextPageContext) => {
     } : {}
   )
 
-  const json = await res.json()
+  const news = await res.json()
 
-  console.log(json)
-  return { news: json }
+  return { props: { news } }
 }
 
 

@@ -95,7 +95,7 @@ function Home({ news }: HompePropsType) {
   )
 }
 
-Home.getInitialProps = async (ctx: NextPageContext) => {
+export async function getServerSideProps(ctx: NextPageContext) {
   // console.log((ctx.req?.headers.c))
   const res = await fetch(NEWS_API_PATH,
     ctx?.req?.headers?.cookie ? {
@@ -104,8 +104,8 @@ Home.getInitialProps = async (ctx: NextPageContext) => {
       }
     } : {}
   )
-  const json = await res.json()
-  return { news: json }
+  const news = await res.json()
+  return { props: { news } }
 }
 
 export default Home
