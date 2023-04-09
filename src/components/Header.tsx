@@ -7,26 +7,21 @@ import { regions } from '@src/consts/staticData'
 import { setCookie, getCookie } from 'cookies-next'
 import { useRouter } from 'next/router'
 import Navigation from './Navigation'
+import { Switch } from '@headlessui/react'
+import { SunIcon, MoonIcon } from '@heroicons/react/20/solid'
+import classNames from '@src/helpers/classNames'
 
 export default function Header() {
-  const {state, setState} = useContext(BaseContext)
+  // const {state, setState} = useContext(BaseContext)
   const [dropdownRegions, setDropdownRegions] = useState<DropdownItemType[]>(new Array<DropdownItemModel>())
   const [region, setRegion] = useState<DropdownItemType>(new DropdownItemModel())
+  const [enabled, setEnabled] = useState(false)
   const router = useRouter()
-  
-  const applyThemeColorMode = (val: boolean) => {
-    setState({
-      ...state,
-      darkMode: val
-    })
-
-    document.getElementsByTagName('html')[0].className = val ? 'dark' : ''
-  }
 
   useEffect(() => {
     // detect system prefers color
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      applyThemeColorMode(true)
+      setEnabled(true)
     }
 
     let newRegions: DropdownItemType[] = []
@@ -43,6 +38,10 @@ export default function Header() {
   }, []) // eslint-disable-line
 
   useEffect(() => {
+    document.getElementsByTagName('html')[0].className = enabled ? 'dark' : ''
+  }, [enabled])
+
+  useEffect(() => {
     const cookieRegion = getCookie('region')
     const regionFound = dropdownRegions?.find(item => item.value === cookieRegion) || dropdownRegions[0]
 
@@ -50,10 +49,6 @@ export default function Header() {
       setRegion(regionFound)
     }
   }, [dropdownRegions])
-
-  const handleThemeMode = () => {
-    applyThemeColorMode(!state.darkMode)
-  }
   
   return (
     <div className="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-green/40 bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75">
@@ -77,13 +72,25 @@ export default function Header() {
                 }}
               />
               <label className="sr-only" id="headlessui-listbox-label-3" data-headlessui-state="">Theme</label>
-              <button 
-                onClick={handleThemeMode}
-                className="hover:bg-slate-500 dark:hover:text-slate-200 rounded-full p-1">
-                <Image src="/icon-dark-mode.svg" alt="icon dark mode" width="28" height="28" className="dark:hidden" />
-
-                <Image src="/icon-light-mode.svg" alt="icon light mode" width="28" height="28" className="hidden dark:inline"/>
-              </button>
+              <Switch
+                checked={enabled}
+                onChange={setEnabled}
+                className={`${
+                  enabled ? 'bg-slate-700' : 'bg-slate-500'
+                } relative inline-flex h-6 w-11 items-center rounded-full`}
+              >
+                <span className="sr-only">Enable notifications</span>
+                <span className={classNames(
+                  "inline-block transform rounded-full transition bg-white",
+                  enabled ? 'translate-x-6' : 'translate-x-1',
+                )}>
+                  {enabled ? <MoonIcon className={classNames(
+                    "h-4 w-4 text-slate-900",
+                  )} /> : <SunIcon className={classNames(
+                    "h-4 w-4 text-slate-900 ",
+                  )} />}
+                </span>
+              </Switch>
               <Link href="https://github.com/kdgilang" rel="noopener noreferrer" target="_blank" className="ml-6 block text-slate-700 dark:text-slate-200 hover:text-slate-500 dark:hover:text-slate-300">
                 <span className="sr-only">AI News on GitHub</span>
                 <svg viewBox="0 0 16 16" className="w-5 h-5" fill="currentColor" aria-hidden="true">
