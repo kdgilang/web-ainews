@@ -10,9 +10,9 @@ export default function NotFound() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="h-screen w-full flex flex-col justify-center items-center bg-slate-900">
+      <div className="h-screen w-full flex flex-col justify-center items-center bg-white dark:bg-slate-900">
         <h1 className="text-9xl font-extrabold text-slate-900 dark:text-white tracking-widest">404</h1>
-        <div className="uppercase bg-green px-2 py-1 text-sm rounded rotate-12 absolute text-slate-900 dark:text-white text-xs">
+        <div className="uppercase font-bold bg-green px-2 py-1 text-sm rounded rotate-12 absolute text-white text-xs">
           Page Not Found
         </div>
         <button className="mt-5">
