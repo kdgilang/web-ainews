@@ -10,7 +10,6 @@ const gridClassNames = {
 }
 
 export default function CardSection({ title, cards, type, className }: CardSectionType) {
-  console.log(cards)
   return (
     <div className={className}>
       <Title value={title} />

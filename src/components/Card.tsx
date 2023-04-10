@@ -54,7 +54,6 @@ export default function Card(
         setImgSrc(response.data.data[0].url || '')
       } catch (err) {
         console.log(err)
-        throw err
       }
     }
 
