@@ -57,7 +57,7 @@ export default function SearchForm({ className, isLink }: SearchPropsType) {
           name="q"
           type="text"
           value={keywords}
-          className="min-w-0 flex-auto rounded border border-green/40 bg-white/5 px-3.5 py-2 text-slate-900 dark:text-white ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+          className="min-w-0 flex-auto rounded border border-green/40 bg-white/5 px-3.5 py-2 text-slate-900 dark:text-white focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
           placeholder="Search..."
           onChange={(e) => { setKeywords(e.target.value) }}
         />

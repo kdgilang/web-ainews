@@ -5,7 +5,7 @@ import getNewsByKeywordsUseCase, { NewsByKeywordsUseCaseParamsType } from '@src/
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<NewsItemType>
+  res: NextApiResponse<NewsItemType | any>
 ) {
   try {
     const { q } = req.query
@@ -20,6 +20,6 @@ export default async function handler(
 
     res.status(200).json(newsRes)
   } catch(err) {
-    res.status(400)
+    res.status(400).json(err)
   }
 }

@@ -8,17 +8,22 @@ export type NewsByKeywordsUseCaseParamsType = {
 }
 
 export default async function getNewsByCategoryUseCase(params: NewsByKeywordsUseCaseParamsType): Promise<NewsItemType> {
-  const { lang, q } = params
-  const newsParams: NewsParamsType = {
-    path: 'everything',
-    query: `q=${q || 'trending'}&language=${lang || 'en'}`
+  try {
+    const { lang, q } = params
+    const newsParams: NewsParamsType = {
+      path: 'everything',
+      query: `q=${q || 'trending'}&language=${lang || 'en'}`
+    }
+  
+    const response = await newsProvider(newsParams)
+  
+    response?.articles?.forEach((article: ArticleType) => {
+      article.publishedAt = moment(article.publishedAt).format('LL')
+    })
+  
+    return response
+  } catch(err) {
+    console.log(err)
+    throw err
   }
-
-  const response = await newsProvider(newsParams)
-
-  response?.articles?.forEach((article: ArticleType) => {
-    article.publishedAt = moment(article.publishedAt).format('LL')
-  })
-
-  return response
 }
