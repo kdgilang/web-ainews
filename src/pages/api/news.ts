@@ -5,7 +5,7 @@ import { NewsDtoType } from '@src/types/newsDtoType'
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<NewsDtoType>
+  res: NextApiResponse<NewsDtoType | any>
 ) {
   try {
     const newsRes = await getNewsUseCase(req.cookies.region)
@@ -16,6 +16,6 @@ export default async function handler(
     }
     res.status(200).json(response)
   } catch(err) {
-    res.status(400)
+    res.status(400).json(err)
   }
 }
