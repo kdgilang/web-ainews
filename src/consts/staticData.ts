@@ -18,6 +18,57 @@ export const regions: RegionType[] = [
   }
 ]
 
+export const multilingual = [
+  {
+    name: 'Arabic',
+    shortName: 'ar',
+  },
+  {
+    name: 'German',
+    shortName: 'de',
+  },
+  {
+    name: 'English',
+    shortName: 'en',
+  },
+  {
+    name: 'Spanish',
+    shortName: 'es',
+  },
+  {
+    name: 'French',
+    shortName: 'fr',
+  },
+  {
+    name: 'Hebrew',
+    shortName: 'he',
+  },
+  {
+    name: 'Italian',
+    shortName: 'it',
+  },
+  {
+    name: 'Dutch',
+    shortName: 'nl',
+  },
+  {
+    name: 'Chinese',
+    shortName: 'zh',
+  },
+  {
+    name: 'Universal Dependencies',
+    shortName: 'ud',
+  },
+  {
+    name: 'Swedish',
+    shortName: 'sv',
+  },
+  {
+    name: 'Russian',
+    shortName: 'ru',
+  },
+] 
+
 export const categories = [
   {
     id: 1,
