@@ -2,16 +2,16 @@ import newsProvider, { NewsParamsType } from '@src/providers/newsProvider'
 import { ArticleType, NewsItemType } from "@src/types/newsDtoType"
 import moment from 'moment'
 
-export type NewsByCategoryUseCaseParamsType = {
-  region: string
-  slug: string
+export type NewsByKeywordsUseCaseParamsType = {
+  lang: string
+  q: string
 }
 
-export default async function getNewsByCategoryUseCase(params: NewsByCategoryUseCaseParamsType): Promise<NewsItemType> {
-  const { region, slug } = params
+export default async function getNewsByCategoryUseCase(params: NewsByKeywordsUseCaseParamsType): Promise<NewsItemType> {
+  const { lang, q } = params
   const newsParams: NewsParamsType = {
-    path: 'top-headlines',
-    query: `country=${region || 'us'}&category=${slug}`
+    path: 'everything',
+    query: `q=${q}&language=${lang || 'en'}`
   }
 
   const response = await newsProvider(newsParams)
