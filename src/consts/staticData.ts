@@ -20,16 +20,16 @@ export const regions: RegionType[] = [
 
 export const multilingual = [
   {
+    name: 'English',
+    shortName: 'en',
+  },
+  {
     name: 'Arabic',
     shortName: 'ar',
   },
   {
     name: 'German',
     shortName: 'de',
-  },
-  {
-    name: 'English',
-    shortName: 'en',
   },
   {
     name: 'Spanish',

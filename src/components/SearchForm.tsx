@@ -6,8 +6,13 @@ import {  getCookie } from "cookies-next"
 import { SearchContext } from "@src/contexts/SearchContext"
 import { useRouter } from "next/router"
 import classNames from "@src/helpers/classNames"
+import Link from "next/link"
 
-export default function SearchForm({ className }: BasePropsType) {
+type SearchPropsType = BasePropsType & {
+  isLink?: boolean
+}
+
+export default function SearchForm({ className, isLink }: SearchPropsType) {
   const router = useRouter()
   const [keywords, setKeywords] = useState(router.query?.q)
   const { search, setSearch } = useContext(SearchContext)
@@ -29,11 +34,13 @@ export default function SearchForm({ className }: BasePropsType) {
       } : {}
     )).json()
     
-    setSearch({
-      keywords: `${keywords}`,
-      result: newsRes,
-      isLoading: false
-    })
+    setTimeout(() => {
+      setSearch({
+        keywords: `${keywords}`,
+        result: newsRes,
+        isLoading: false
+      })
+    }, 1500)
 
     router.query.q = keywords
     router.push(router)
@@ -50,21 +57,32 @@ export default function SearchForm({ className }: BasePropsType) {
           name="q"
           type="text"
           value={keywords}
-          className="min-w-0 flex-auto rounded border border-slate-900/10 dark:border-green/40 bg-white/5 px-3.5 py-2 text-slate-900 dark:text-white ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+          className="min-w-0 flex-auto rounded border border-green/40 bg-white/5 px-3.5 py-2 text-slate-900 dark:text-white ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
           placeholder="Search..."
           onChange={(e) => { setKeywords(e.target.value) }}
         />
-        <button
-          type="submit"
-          aria-label="submit search from"
-          className={classNames(
-            "flex-none transition rounded bg-green px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500",
-            search.isLoading ? 'bg-green disabled' : '',
-          )}
-          disabled={search.isLoading}
-        >
-          <MagnifyingGlassIcon className="h-6 w-6 text-white" aria-hidden="true" />
-        </button>
+        { isLink ? 
+          <Link
+            aria-label="submit search from"
+            href={`/search?q=${keywords}`}
+            className={classNames(
+              "flex-none transition rounded bg-green px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500",
+              search.isLoading ? 'bg-green disabled' : '',
+            )}> 
+            <MagnifyingGlassIcon className="h-6 w-6 text-white" aria-hidden="true" />
+          </Link> :
+          <button
+            type="submit"
+            aria-label="submit search from"
+            className={classNames(
+              "flex-none transition rounded bg-green px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500",
+              search.isLoading ? 'bg-green disabled' : '',
+            )}
+            disabled={search.isLoading}
+          >
+            <MagnifyingGlassIcon className="h-6 w-6 text-white" aria-hidden="true" />
+          </button>
+        }
       </form>
     </div>
   )

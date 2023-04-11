@@ -11,7 +11,7 @@ export default async function getNewsByCategoryUseCase(params: NewsByKeywordsUse
   const { lang, q } = params
   const newsParams: NewsParamsType = {
     path: 'everything',
-    query: `q=${q}&language=${lang || 'en'}`
+    query: `q=${q || 'trending'}&language=${lang || 'en'}`
   }
 
   const response = await newsProvider(newsParams)

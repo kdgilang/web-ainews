@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Dropdown, { DropdownItemModel, DropdownItemType } from './Dropdown'
-import { regions } from '@src/consts/staticData'
+import { multilingual, regions } from '@src/consts/staticData'
 import { setCookie, getCookie } from 'cookies-next'
 import { useRouter } from 'next/router'
 import Navigation from './Navigation'
@@ -11,9 +11,10 @@ import { SunIcon, MoonIcon } from '@heroicons/react/20/solid'
 import classNames from '@src/helpers/classNames'
 
 export default function Header() {
-  // const {state, setState} = useContext(BaseContext)
   const [dropdownRegions, setDropdownRegions] = useState<DropdownItemType[]>(new Array<DropdownItemModel>())
+  const [languages, setLanguages] = useState<DropdownItemType[]>(new Array<DropdownItemModel>())
   const [region, setRegion] = useState<DropdownItemType>(new DropdownItemModel())
+  const [lang, setLang] = useState<DropdownItemType>(new DropdownItemModel())
   const [enabled, setEnabled] = useState(false)
   const router = useRouter()
 
@@ -23,7 +24,7 @@ export default function Header() {
       setEnabled(true)
     }
 
-    let newRegions: DropdownItemType[] = []
+    let newRegions = new Array<DropdownItemModel>()
     regions.forEach(r => {
       newRegions.push({
         label: r.name,
@@ -32,7 +33,17 @@ export default function Header() {
       })
     })
 
+    let newLanguages = new Array<DropdownItemModel>()
+    multilingual.forEach(l => {
+      newLanguages.push({
+        label: l.name,
+        value: l.shortName,
+        href: '#'
+      })
+    })
+
     setDropdownRegions(newRegions)
+    setLanguages(newLanguages)
 
   }, []) // eslint-disable-line
 
@@ -48,6 +59,15 @@ export default function Header() {
       setRegion(regionFound)
     }
   }, [dropdownRegions])
+
+  useEffect(() => {
+    const cookieLang = getCookie('lang')
+    const langFound = languages?.find(item => item.value === cookieLang) || languages[0]
+
+    if (langFound) {
+      setLang(langFound)
+    }
+  }, [languages])
   
   return (
     <div className="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-green/40 bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75">
@@ -61,16 +81,27 @@ export default function Header() {
             </Link>
             <Navigation />
             <div className="ml-auto flex items-center dark:border-slate-800">
-              <Dropdown
-                className="mr-6"
-                items={dropdownRegions}
-                value={region}
-                onDropdownChange={(item) => { 
-                  setCookie('region', item.value)
-                  router.reload()
-                }}
-              />
-              <label className="sr-only" id="headlessui-listbox-label-3" data-headlessui-state="">Theme</label>
+              { router.pathname === '/search' ? 
+                <Dropdown
+                  className="mr-6"
+                  items={languages}
+                  value={lang}
+                  onDropdownChange={(item) => { 
+                    setCookie('lang', item.value)
+                    router.reload()
+                  }}
+                /> :
+                <Dropdown
+                  className="mr-6"
+                  items={dropdownRegions}
+                  value={region}
+                  onDropdownChange={(item) => { 
+                    setCookie('region', item.value)
+                    router.reload()
+                  }}
+                />
+              }
+
               <Switch
                 checked={enabled}
                 onChange={setEnabled}
@@ -78,7 +109,7 @@ export default function Header() {
                   enabled ? 'bg-slate-700' : 'bg-slate-500'
                 } relative inline-flex h-6 w-11 items-center rounded-full`}
               >
-                <span className="sr-only">Enable notifications</span>
+                <span className="sr-only">Enable dark mode</span>
                 <span className={classNames(
                   "inline-block transform rounded-full transition bg-white",
                   enabled ? 'translate-x-6' : 'translate-x-1',

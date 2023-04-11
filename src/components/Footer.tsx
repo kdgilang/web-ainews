@@ -13,9 +13,9 @@ export default function Footer() {
       <p className="mb-8 text-slate-700 dark:text-slate-200">© 2023 AI News. All rights reserved.</p>
       <nav className="block text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
         <ul className="flex space-x-8">
-          <li><Link className="transition hover:text-green" href="/docs/installation">Docs</Link></li>
-          <li><Link href="https://tailwindui.com/?ref=top" className="transition hover:text-green">Components</Link></li>
-          <li><Link className="transition hover:text-green" href="/blog">Blog</Link></li>
+          <li><Link target="_blank" rel="noopener noreferrer" className="transition hover:text-green" href="https://github.com/kdgilang/web-ainews">Docs</Link></li>
+          <li><Link target="_blank" rel="noopener noreferrer" className="transition hover:text-green" href="https://github.com/kdgilang/" >Components</Link></li>
+          <li><Link target="_blank" rel="noopener noreferrer" className="transition hover:text-green" href="https://github.com/kdgilang/">Blog</Link></li>
         </ul>
       </nav>
     </div>

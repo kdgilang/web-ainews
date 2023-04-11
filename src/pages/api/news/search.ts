@@ -15,7 +15,7 @@ export default async function handler(
       q,
       lang
     } as NewsByKeywordsUseCaseParamsType
-
+    console.log(params)
     const newsRes = await getNewsByKeywordsUseCase(params)
 
     res.status(200).json(newsRes)

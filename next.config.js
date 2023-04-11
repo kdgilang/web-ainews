@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ['i.guim.co.uk', 'www.si.com', 'img.tfd.com'],
+    domains: ['i.guim.co.uk', 'www.si.com', 'img.tfd.com', 'cdn.mefi.us'],
     remotePatterns: [
       {
         protocol: 'https',

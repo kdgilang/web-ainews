@@ -4,7 +4,7 @@ import { NextPageContext } from 'next'
 import Default from '@src/layouts/Default'
 import Card, { ECardType } from "@src/components/Card"
 import CardSection from "@src/components/CardSection"
-import { NEWS_API_PATH, NEWS_CATEGORY_API_PATH } from '@src/consts/pathApi'
+import { NEWS_CATEGORY_API_PATH } from '@src/consts/pathApi'
 import Title from "@src/components/Title"
 import { BasePropsType } from '@src/types/basePropsType'
 import { NewsItemType } from '@src/types/newsDtoType'
@@ -29,7 +29,7 @@ const Category = ({ news }: CategoryPropsType) => {
       </Head>
       
       <Default>
-        <Card 
+        <Card
           type={ECardType.float}
           {...news?.articles?.[0]}
           className="w-full"

@@ -1,4 +1,4 @@
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from '@src/components/Skeleton'
 
 export default function HomeSkeleton() {
   return (
