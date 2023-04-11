@@ -24,7 +24,7 @@ function Home({ news }: HompePropsType) {
     <>
       <Head>
         <title>AI News | Home</title>
-        <meta name="description" content="AI News provide relevant news you needs" />
+        <meta name="description" content="AI News relevant news you needs" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -32,7 +32,7 @@ function Home({ news }: HompePropsType) {
       <Suspense fallback={<HomeSkeleton />}>
         <Default>
       
-          <SearchForm className="mb-16 w-4/6 mx-auto" />
+          <SearchForm isLink={true} className="mb-16 md:w-4/6 mx-auto" />
 
           <div className="lg:flex">
             <div className="lg:flex-initial lg:w-4/6 lg:pr-8">

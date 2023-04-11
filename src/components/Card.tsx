@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Configuration, OpenAIApi } from 'openai'
 import { NEXT_PUBLIC_OPEN_API_KEY } from '@src/consts/config'
-import Skeleton from 'react-loading-skeleton'
+import Skeleton from '@src/components/Skeleton'
 import { ArticleType } from '@src/types/newsDtoType'
 import useTruncate from '@src/hooks/useTruncate'
 import classNames from '@src/helpers/classNames'
@@ -99,10 +99,8 @@ export default function Card(
           className="h-full w-full object-cover object-center"
         />
         { !isImageLoaded && <Skeleton
-          containerClassName="w-full h-full object-cover absolute left-0 top-0"
-          className="w-full h-full object-cover"
-          highlightColor="#EFEFEF"
-          baseColor="#CCCCCC" /> }
+          containerClassName="absolute"
+          className="absolute" /> }
       </div>
       <div className={classNames(
         'z-10 transition',

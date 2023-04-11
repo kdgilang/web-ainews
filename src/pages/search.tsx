@@ -27,12 +27,12 @@ export default function Search({ news, keywords }: SearchPropsType) {
       </Head>
       <SearchContext>
         <Default>
-          <SearchForm className="mb-16 w-4/6 mx-auto" />
+          <SearchForm className="mb-16 md:w-4/6 mx-auto" />
 
           <BreadCrumb className="mt-6 lg:mt-10" />
 
           <div className="mt-6 md:mt-10">
-            <SearchResult items={news} keywords={keywords} />
+            <SearchResult items={news.articles} keywords={keywords} />
           </div>
         </Default>
       </SearchContext>
