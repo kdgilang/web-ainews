@@ -51,16 +51,19 @@ export default function Card(
           n: 1,
           size: "512x512",
         })
+
+        console.log('test', response)
     
         setImgSrc(response.data.data[0].url || '')
       } catch (err) {
+        setImgSrc(urlToImage || '/placeholder.png')
         console.log(err)
+      } finally {
+        setIsImageLoaded(true)
       }
     }
 
     fetchImage()
-      .catch(() => setImgSrc(urlToImage || '/placeholder.png'))
-      .finally(() => setIsImageLoaded(true))
   })
 
   const containerClassNames = {
