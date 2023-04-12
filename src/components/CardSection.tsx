@@ -4,7 +4,7 @@ import { BasePropsType } from "@src/types/basePropsType"
 import { ArticleType } from "@src/types/newsDtoType"
 
 const gridClassNames = {
-  [ECardType.column]: "grid md:grid-cols-4 grid-flow-col gap-4",
+  [ECardType.column]: "grid md:grid-cols-4 md:grid-flow-col gap-6",
   [ECardType.row]: "grid md:grid-rows-4 gap-4",
   [ECardType.float]: ""
 }

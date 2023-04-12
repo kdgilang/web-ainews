@@ -1,10 +1,11 @@
 import { BasePropsType } from '@src/types/basePropsType'
 import Card, { ECardType } from '@src/components/Card'
 import Title from '@src/components/Title'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { SearchContext } from '@src/contexts/SearchContext'
 import { ArticleType } from '@src/types/newsDtoType'
 import Skeleton from '@src/components/Skeleton'
+import { NewsModel } from '@src/models/newsModel'
 
 export type SearchResultPropsType = BasePropsType & {
   items: ArticleType[],
@@ -14,6 +15,15 @@ export type SearchResultPropsType = BasePropsType & {
 export default function SearchResult({ items, keywords }: SearchResultPropsType) {
   const { search } = useContext(SearchContext)
   const { isLoading } = search
+  const { setSearch } = useContext(SearchContext)
+
+  useEffect(() => {
+    setSearch({
+      keywords: `${keywords}`,
+      result: new NewsModel(),
+      isLoading: false
+    })
+  }, [items, keywords, setSearch])
 
   return (
     <>

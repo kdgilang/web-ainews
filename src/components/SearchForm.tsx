@@ -1,12 +1,11 @@
 import { BasePropsType } from "@src/types/basePropsType"
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { FormEvent, useContext, useState } from "react"
-import { NEWS_SEARCH_API_PATH } from "@src/consts/pathApi"
-import {  getCookie } from "cookies-next"
 import { SearchContext } from "@src/contexts/SearchContext"
 import { useRouter } from "next/router"
 import classNames from "@src/helpers/classNames"
 import Link from "next/link"
+import { NewsModel } from "@src/models/newsModel"
 
 type SearchPropsType = BasePropsType & {
   isLink?: boolean
@@ -20,27 +19,12 @@ export default function SearchForm({ className, isLink }: SearchPropsType) {
   const handleSubmit = async (e: FormEvent<EventTarget>) => {
     e.preventDefault()
 
+    if (search.isLoading) return
+
     setSearch({
       ...search,
       isLoading: true
     })
-
-    const lang = `${getCookie('lang') || ''}`
-    const newsRes = await (await fetch(`${NEWS_SEARCH_API_PATH}?q=${keywords}`,
-    lang ? {
-        headers: {
-          cookie: `lang=${lang}`
-        }
-      } : {}
-    )).json()
-    
-    setTimeout(() => {
-      setSearch({
-        keywords: `${keywords}`,
-        result: newsRes,
-        isLoading: false
-      })
-    }, 1500)
 
     router.query.q = keywords
     router.push(router)
