@@ -12,7 +12,7 @@ export default function BreadCrumb({ className }: BasePropsType) {
 
   useEffect(() => {
     if (router) {
-      const linkPath = router.asPath?.split('?')[0]?.split('/')
+      const linkPath = router.asPath?.split('?')?.[0]?.split('/')
       linkPath?.shift()
 
       const pathArray = linkPath.map((path, i) => {
