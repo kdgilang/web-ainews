@@ -38,7 +38,6 @@ function Home({ news }: HompePropsType) {
             <div className="lg:flex-initial lg:w-4/6 lg:pr-8">
               <Card 
                 type={ECardType.float}
-                label="executive"
                 {...business.articles[0]}
                 className=""
                 description=""
@@ -71,7 +70,6 @@ function Home({ news }: HompePropsType) {
                         { ...item }
                         type={ECardType.row}
                         rowReverse={true}
-                        label="executive"
                       />
                     )
                   )}
@@ -80,8 +78,7 @@ function Home({ news }: HompePropsType) {
                 <div className="md:sticky md:top-20 md:z-50">
                   <Title value="Super story" />
                   <Card 
-                    type={ECardType.column} 
-                    label="executive"
+                    type={ECardType.column}
                     {...business.articles[0]}
                     className=""
                   />

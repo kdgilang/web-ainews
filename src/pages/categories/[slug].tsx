@@ -50,7 +50,6 @@ const Category = ({ news }: CategoryPropsType) => {
                       key={`card-science-${index}`}
                       { ...item }
                       type={ECardType.row}
-                      label="executive"
                     />
                   )
                 )}
@@ -67,7 +66,6 @@ const Category = ({ news }: CategoryPropsType) => {
                 <Title value="Super story" />
                 <Card 
                   type={ECardType.column}
-                  label="executive"
                   {...news?.articles?.[0]}
                   className=""
                 />
