@@ -35,6 +35,7 @@ export default function Card(
   const [isImageLoaded, setIsImageLoaded] = useState(false)
   const truncatedTitle = useTruncate(title, maxTitleLength || 0)
   const truncatedDescription = useTruncate(description, 150 || 0)
+  const truncatedAuthor = useTruncate(author, 20 || 0)
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -115,7 +116,7 @@ export default function Card(
           </Link>
         </h3>
         <p className="mt-2 text-xs text-slate-600 dark:text-slate-200">
-          <span>By <strong>{author ? author : 'unknown'}</strong></span> | <span>{publishedAt}</span>
+          <span>By <strong>{author ? truncatedAuthor : 'unknown'}</strong></span> | <span>{publishedAt}</span>
         </p>
         { description && <p className="break-words mt-2 text-sm text-slate-700 dark:text-slate-200 hidden md:block">
           { truncatedDescription }
