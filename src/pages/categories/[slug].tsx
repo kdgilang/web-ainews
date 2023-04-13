@@ -67,7 +67,6 @@ const Category = ({ news }: CategoryPropsType) => {
                 <Card 
                   type={ECardType.column}
                   {...news?.articles?.[0]}
-                  className=""
                 />
               </div>
             </div>
@@ -97,6 +96,5 @@ export async function getServerSideProps({req, res, query}: NextPageContext) {
 
   return { props: { news } }
 }
-
 
 export default Category

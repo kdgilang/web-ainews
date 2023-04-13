@@ -85,8 +85,16 @@ export default function Card(
   }
 
   return (
-    <div className={`group relative ${containerClassNames[type]} ${className}`}>
-      <div className={`relative aspect-[16/9] ${imageClassNames[type]} overflow-hidden rounded bg-gray-200 group-hover:opacity-75 ${imageClassName}`}>
+    <div className={classNames(
+      "group relative",
+      containerClassNames[type],
+      className ? className : ''
+    )}>
+      <div className={classNames(
+        "relative aspect-[16/9] overflow-hidden rounded bg-gray-200 group-hover:opacity-75",
+        imageClassNames[type],
+        imageClassName ? imageClassName : ''
+      )}>
         { label && 
           <p className={classNames(
             "text-white font-bold uppercase text-xs bg-green px-4 py-2 absolute rounded-br top-0",
@@ -112,7 +120,10 @@ export default function Card(
         (label && type === ECardType.float) ? "md:pt-12" : ""
       )}>
         { (label && type === ECardType.float) && <p className="hidden md:block text-white font-bold uppercase text-xs bg-green px-4 py-2 absolute rounded-bl rounded-br top-0">{ label }</p> }
-        <h3 className={`break-words font-bold text-slate-700 dark:text-slate-200 ${titleClassNames[type]}`}>
+        <h3 className={classNames(
+          "break-words font-bold text-slate-700 dark:text-slate-200",
+          titleClassNames[type]
+        )}>
           <Link href={ url || '#' } rel="noopener noreferrer" target="_blank">
             <span aria-hidden="true" className="absolute inset-0" />
             { truncatedTitle }

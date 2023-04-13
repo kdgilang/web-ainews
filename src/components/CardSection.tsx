@@ -21,7 +21,6 @@ export default function CardSection({ title, cards, type, className }: CardSecti
             maxTitleLength={50}
             description=""
             content=""
-            className=""
           />
         )
         )}

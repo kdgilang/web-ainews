@@ -31,7 +31,7 @@ export default function SearchResult({ items, keywords }: SearchResultPropsType)
       <div className="space-y-6">
         {
           isLoading ? Array.from({length: 6}, (_, i) => (
-            <div key={`skeleton${i}`} className="group relative flex">
+            <div key={`skeleton-${i}`} className="group relative flex">
               <div className="relative aspect-[16/9] w-4/12 overflow-hidden rounded bg-gray-200 group-hover:opacity-75">
                 <Skeleton />
               </div>
