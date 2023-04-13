@@ -31,7 +31,10 @@ export default function SearchForm({ className, isLink }: SearchPropsType) {
   }
 
   return (
-    <div className={`bg-white dark:bg-slate-900 relative pointer-events-auto ${className}`}>
+    <div className={classNames(
+      "bg-white dark:bg-slate-900 relative pointer-events-auto",
+      className || ""
+    )}>
       <form className="mt-6 flex gap-x-4" action="/search" onSubmit={ (e: FormEvent<EventTarget>) => { handleSubmit(e) } }>
         <label htmlFor="search" className="sr-only">
           Search
@@ -51,7 +54,7 @@ export default function SearchForm({ className, isLink }: SearchPropsType) {
             href={`/search?q=${keywords}`}
             className={classNames(
               "flex-none transition rounded bg-green px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500",
-              search.isLoading ? 'bg-green disabled' : '',
+              search.isLoading ? "bg-green disabled" : "",
             )}> 
             <MagnifyingGlassIcon className="h-6 w-6 text-white" aria-hidden="true" />
           </Link> :
@@ -60,7 +63,7 @@ export default function SearchForm({ className, isLink }: SearchPropsType) {
             aria-label="submit search from"
             className={classNames(
               "flex-none transition rounded bg-green px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500",
-              search.isLoading ? 'bg-green disabled' : '',
+              search.isLoading ? "bg-green disabled" : "",
             )}
             disabled={search.isLoading}
           >

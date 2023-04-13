@@ -39,7 +39,6 @@ function Home({ news }: HompePropsType) {
               <Card 
                 type={ECardType.float}
                 {...business.articles[0]}
-                className=""
                 description=""
                 content=""
               />
@@ -65,14 +64,14 @@ function Home({ news }: HompePropsType) {
 
             <div className="lg:flex">
               <div className="lg:flex-initial lg:w-4/6 lg:pr-8 grid gap-6">
-                  {science?.articles?.map((item, index) => (<Card
-                        key={`card-science-${index}`}
-                        { ...item }
-                        type={ECardType.row}
-                        rowReverse={true}
-                      />
-                    )
-                  )}
+                {science?.articles?.map((item, index) => (<Card
+                      key={`card-science-${index}`}
+                      { ...item }
+                      type={ECardType.row}
+                      rowReverse={true}
+                    />
+                  )
+                )}
               </div>
               <div className="mt-6 lg:mt-0 lg:flex-initial lg:w-4/12">
                 <div className="md:sticky md:top-20 md:z-50">
@@ -80,7 +79,6 @@ function Home({ news }: HompePropsType) {
                   <Card 
                     type={ECardType.column}
                     {...business.articles[0]}
-                    className=""
                   />
                 </div>
               </div>
@@ -97,14 +95,14 @@ export async function getServerSideProps({req, res}: NextPageContext) {
     'Cache-Control',
     'public, s-maxage=100, stale-while-revalidate=59'
   )
-  const newsRes = await fetch(NEWS_API_PATH,
+  const news = await (await fetch(NEWS_API_PATH,
     req?.headers?.cookie ? {
       headers: {
         cookie: req.headers.cookie
       }
     } : {}
-  )
-  const news = await newsRes.json()
+  )).json()
+  
   return { props: { news } }
 }
 

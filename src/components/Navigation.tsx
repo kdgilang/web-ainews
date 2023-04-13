@@ -27,7 +27,7 @@ export default function Navigation() {
   return (
     <nav className="block xl:ml-8 text-sm leading-6 font-semibold text-slate-700 dark:text-slate-200">
       <Dropdown
-        className={classNames("relative block text-left lg:hidden")}
+        className="relative block text-left lg:hidden"
         value={menu[0]}
         items={menu}
         buttonEl={(
@@ -44,10 +44,8 @@ export default function Navigation() {
         <li>
           <Link className={classNames(
             "hover:text-slate-500 dark:hover:text-slate-400 before:content-[''] transition-all before:w-0 before:transition-all relative before:border-b-2 before:border-green before:top-full before:absolute before:left-0 hover:before:w-4/6 focus:before:w-4/6",
-            router.asPath === '/' ? 'before:w-4/6' : ''
-          )}
-            href="/"
-          >
+            router.asPath === '/' ? "before:w-4/6" : ""
+          )} href="/">
             Home
           </Link>
         </li>
@@ -55,7 +53,7 @@ export default function Navigation() {
           <li key={`menu-${item.id}`}>
             <Link className={classNames(
               "before:content-[''] transition-all before:w-0 before:transition-all relative before:border-b-2 before:border-green before:top-full before:absolute before:left-0 hover:before:w-4/6 focus:before:w-4/6",
-              router.asPath === `/categories/${item.name}` ? 'before:w-4/6' : ''
+              router.asPath === `/categories/${item.name}` ? "before:w-4/6" : ""
             )}
               href={`/categories/${item.name}`}
             >

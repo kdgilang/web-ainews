@@ -29,7 +29,7 @@ function Categories({ news }: CategoriesPropsType) {
           <li key={`menu-${item.id}`}>
             <Link className={classNames(
               "aspect-video uppercase text-md md:text-xl font-bold flex items-center justify-center bg-slate-100 dark:bg-slate-700 hover:bg-green/40 dark:hover:bg-green/40 text-slate-900 dark:text-white",
-              router.asPath === `/categories/${item.name}` ? 'before:w-4/6' : ''
+              router.asPath === `/categories/${item.name}` ? "before:w-4/6" : ""
             )}
               href={`/categories/${item.name}`}
             >

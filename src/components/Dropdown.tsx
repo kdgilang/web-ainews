@@ -66,7 +66,7 @@ export default function Dropdown({ className, items, value, buttonEl, onDropdown
                   <Link
                     href={item.href}
                     className={classNames(
-                      selectedValue.value === item.value ? 'before:w-4/12' : '',
+                      selectedValue.value === item.value ? "before:w-4/12" : "",
                       "block px-4 my-2 text-sm before:content-[''] transition-all before:w-0 before:transition-all relative before:border-b-2 before:border-green before:top-full before:absolute"
                     )}
                     onClick={() => {

@@ -30,7 +30,7 @@ export default function BreadCrumb({ className }: BasePropsType) {
   return (
     <nav className={classNames(
       "flex",
-      className ? className : ""
+      className || ""
     )} aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1 md:space-x-3">
         <Link href="/" className="inline-flex items-center text-sm font-medium text-slate-900 dark:text-white hover:text-green">
