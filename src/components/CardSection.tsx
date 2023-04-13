@@ -15,7 +15,7 @@ export default function CardSection({ title, cards, type, className }: CardSecti
       <Title value={title} />
       <div className={gridClassNames[type]}>
         {cards?.map((item, index) => (<Card
-            key={`card-${index}`}
+            key={`card-${title.replace(' ','')}-${index}`}
             { ...item }
             type={type}
             maxTitleLength={50}

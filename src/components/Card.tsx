@@ -41,23 +41,21 @@ export default function Card(
     const fetchImage = async () => {
       try {
 
-        const configuration = new Configuration({
+        const config = new Configuration({
           apiKey: NEXT_PUBLIC_OPEN_API_KEY,
         })
-        const openai = new OpenAIApi(configuration)
+        delete config.baseOptions.headers['User-Agent']
+        const openai = new OpenAIApi(config)
   
         const response = await openai.createImage({
           prompt: `a ${title} digital art`,
           n: 1,
           size: "512x512",
         })
-
-        console.log('test', response)
     
         setImgSrc(response.data.data[0].url || '')
       } catch (err) {
         setImgSrc(urlToImage || '/placeholder.png')
-        console.log(err)
       } finally {
         setIsImageLoaded(true)
       }
@@ -88,12 +86,12 @@ export default function Card(
     <div className={classNames(
       "group relative",
       containerClassNames[type],
-      className ? className : ''
+      className || ""
     )}>
       <div className={classNames(
         "relative aspect-[16/9] overflow-hidden rounded bg-gray-200 group-hover:opacity-75",
         imageClassNames[type],
-        imageClassName ? imageClassName : ''
+        imageClassName || ""
       )}>
         { label && 
           <p className={classNames(
@@ -104,8 +102,8 @@ export default function Card(
         <Image
           src={imgSrc}
           alt={title}
-          width="200"
-          height="150"
+          width={200}
+          height={150}
           placeholder="blur"
           blurDataURL="/placeholder.png"
           className="h-full w-full object-cover object-center"

@@ -84,15 +84,13 @@ export async function getServerSideProps({req, res, query}: NextPageContext) {
     'Cache-Control',
     'public, s-maxage=100, stale-while-revalidate=59'
   )
-  const newsRes = await fetch(NEWS_CATEGORY_API_PATH(slug as string),
+  const news = await (await fetch(NEWS_CATEGORY_API_PATH(slug as string),
     req?.headers?.cookie ? {
       headers: {
         cookie: req.headers.cookie
       }
     } : {}
-  )
-
-  const news = await newsRes.json()
+  )).json()
 
   return { props: { news } }
 }
