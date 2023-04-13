@@ -21,24 +21,29 @@ export default function SubscribeForm({ className, isMinimal }: SubscribeFormTyp
     e.preventDefault()
 
     if (busy) return
-    setErrorMessage('')
-    setBusy(true)
-
-    const newSubscriber: ISubscriberModel = { email, firstName: '', lastName: ''}
-    const res = await (await fetch(SUBSCRIBE_API_PATH, {
-      method: 'POST',
-      body: JSON.stringify(newSubscriber)
-    })).json()
     
-    if(res?.errors) {
-      setErrorMessage(res.errors?.email?.message)
-    } else if(res.code === 11000) {
-      setErrorMessage('Email address is already exists.')
-    } else {
-      setIsOpenModal(true)
+    try {
+      setErrorMessage('')
+      setBusy(true)
+  
+      const newSubscriber: ISubscriberModel = { email, firstName: '', lastName: ''}
+      const res = await (await fetch(SUBSCRIBE_API_PATH, {
+        method: 'POST',
+        body: JSON.stringify(newSubscriber)
+      })).json()
+      
+      if(res?.errors) {
+        setErrorMessage(res.errors?.email?.message)
+      } else if(res.code === 11000) {
+        setErrorMessage('Email address is already exists.')
+      } else {
+        setIsOpenModal(true)
+      }
+    } catch (err) {
+      setErrorMessage('Something went wrong.')
+    } finally {
+      setBusy(false)
     }
-
-    setBusy(false)
   }
 
   return (
@@ -79,6 +84,7 @@ export default function SubscribeForm({ className, isMinimal }: SubscribeFormTyp
                 id="email-address"
                 name="email"
                 type="text"
+                required
                 autoComplete="email"
                 value={email}
                 onChange={ (e) => {
