@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Dropdown, { DropdownItemModel, DropdownItemType } from './Dropdown'
 import { multilingual, regions } from '@src/consts/staticData'
-import { setCookie, getCookie } from 'cookies-next'
+import { setCookie, getCookie, removeCookies } from 'cookies-next'
 import { useRouter } from 'next/router'
 import Navigation from './Navigation'
 import { Switch } from '@headlessui/react'
@@ -20,7 +20,12 @@ export default function Header() {
 
   useEffect(() => {
     // detect system prefers color
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    const darkMode = getCookie('darkMode')
+
+    if (
+      (!darkMode && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      || darkMode === '1'
+    ) {
       setEnabled(true)
     }
 
@@ -48,7 +53,8 @@ export default function Header() {
   }, []) // eslint-disable-line
 
   useEffect(() => {
-    document.getElementsByTagName('html')[0].className = enabled ? 'dark' : ''
+    setCookie('darkMode', enabled ? '1' : '0')
+    document.getElementsByTagName('html')[0].className = enabled ?  'dark' : ''
   }, [enabled])
 
   useEffect(() => {
