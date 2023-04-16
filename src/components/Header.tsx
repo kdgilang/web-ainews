@@ -29,23 +29,17 @@ export default function Header() {
       setEnabled(true)
     }
 
-    let newRegions = new Array<DropdownItemModel>()
-    regions.forEach(r => {
-      newRegions.push({
-        label: r.name,
-        value: r.shortName,
-        href: '#'
-      })
-    })
+    const newRegions = regions.map(r => ({
+      label: r.name,
+      value: r.shortName,
+      href: '#'
+    }))
 
-    let newLanguages = new Array<DropdownItemModel>()
-    multilingual.forEach(l => {
-      newLanguages.push({
-        label: l.name,
-        value: l.shortName,
-        href: '#'
-      })
-    })
+    const newLanguages = multilingual.map(l => ({
+      label: l.name,
+      value: l.shortName,
+      href: '#'
+    }))
 
     setDropdownRegions(newRegions)
     setLanguages(newLanguages)
