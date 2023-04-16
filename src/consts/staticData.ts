@@ -2,6 +2,11 @@ import { RegionType } from "@src/types/regionType";
 
 export const regions: RegionType[] = [
   {
+    name: 'United State',
+    shortName: 'us',
+    currency: 'USD'
+  },
+  {
     name: 'Indonesia',
     shortName: 'id',
     currency: 'IDR'
@@ -10,11 +15,6 @@ export const regions: RegionType[] = [
     name: 'Australia',
     shortName: 'au',
     currency: 'AUD'
-  },
-  {
-    name: 'United State',
-    shortName: 'us',
-    currency: 'USD'
   }
 ]
 
