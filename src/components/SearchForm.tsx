@@ -13,7 +13,7 @@ type SearchPropsType = BasePropsType & {
 
 export default function SearchForm({ className, isLink }: SearchPropsType) {
   const router = useRouter()
-  const [keywords, setKeywords] = useState(router.query?.q)
+  const [keywords, setKeywords] = useState(router.query?.q || '')
   const { search, setSearch } = useContext(SearchContext)
 
   const handleSubmit = async (e: FormEvent<EventTarget>) => {
