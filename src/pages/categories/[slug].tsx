@@ -46,7 +46,7 @@ const Category = ({ news }: CategoryPropsType) => {
 
           <div className="lg:flex">
             <div className="lg:flex-initial lg:w-4/6 lg:pr-8 grid gap-6">
-                {news?.articles?.map((item, index) => (<Card
+                {news?.articles?.slice(1, 5)?.map((item, index) => (<Card
                       key={`card-science-${index}`}
                       { ...item }
                       type={ECardType.row}
@@ -58,7 +58,7 @@ const Category = ({ news }: CategoryPropsType) => {
               <CardSection
                 title="Recommended"
                 type={ECardType.row}
-                cards={news?.articles?.slice(1, 5)} />
+                cards={news?.articles?.slice(4, 8)} />
               
               <SubscribeForm className="mt-6" isMinimal={true} />
 
@@ -80,10 +80,10 @@ const Category = ({ news }: CategoryPropsType) => {
 export async function getServerSideProps({req, res, query}: NextPageContext) {
   const { slug } = query
 
-  res?.setHeader(
-    'Cache-Control',
-    'public, s-maxage=100, stale-while-revalidate=59'
-  )
+  // res?.setHeader(
+  //   'Cache-Control',
+  //   'public, s-maxage=100, stale-while-revalidate=59'
+  // )
   const news = await (await fetch(NEWS_CATEGORY_API_PATH(slug as string),
     req?.headers?.cookie ? {
       headers: {

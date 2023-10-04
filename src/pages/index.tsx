@@ -91,10 +91,10 @@ function Home({ news }: HompePropsType) {
 }
 
 export async function getServerSideProps({req, res}: NextPageContext) {
-  res?.setHeader(
-    'Cache-Control',
-    'public, s-maxage=100, stale-while-revalidate=59'
-  )
+  // res?.setHeader(
+  //   'Cache-Control',
+  //   'public, s-maxage=100, stale-while-revalidate=59'
+  // )
   const news = await (await fetch(NEWS_API_PATH,
     req?.headers?.cookie ? {
       headers: {
